@@ -34,6 +34,7 @@
             color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
+            user-select: none;
         }
 
         /* --- 1. DNA PRELOADER --- */
@@ -76,7 +77,7 @@
             position: fixed;
             top: 0; left: 0; width: 100%;
             background-color: var(--clean-white);
-            padding: 15px 5%;
+            padding: 12px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -86,18 +87,18 @@
         }
 
         header.scrolled {
-            padding: 10px 5%;
+            padding: 8px 5%;
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
 
         .logo-img {
-            height: 55px;
+            height: 50px;
             object-fit: contain;
             transition: height 0.3s;
         }
 
         header.scrolled .logo-img {
-            height: 45px;
+            height: 42px;
         }
 
         nav {
@@ -109,7 +110,7 @@
             text-decoration: none;
             color: var(--corp-blue);
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             position: relative;
@@ -127,17 +128,20 @@
             width: 100%;
         }
 
-        /* --- 3. HARDWARE-ACCELERATED SWIPE HERO CAROUSEL --- */
+        /* --- 3. CINEMATIC LANDSCAPE HERO CAROUSEL --- */
         .hero {
             position: relative;
-            height: 100vh;
             width: 100%;
-            margin-top: 85px;
+            margin-top: 74px; /* Offset for header */
             background-color: var(--corp-blue);
             overflow: hidden;
+            /* Ultra-wide landscape framing with strict bounds */
+            aspect-ratio: 21 / 9;
+            max-height: 70vh;
+            min-height: 460px;
+            touch-action: pan-y pinch-zoom;
         }
 
-        /* Native CSS Scroll Snap for ultra-smooth physical finger dragging */
         .slider-track {
             display: flex;
             width: 100%;
@@ -146,11 +150,11 @@
             scroll-snap-type: x mandatory;
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
-            scrollbar-width: none; /* Hide scrollbar Firefox */
+            scrollbar-width: none;
         }
 
         .slider-track::-webkit-scrollbar {
-            display: none; /* Hide scrollbar Chrome/Safari */
+            display: none;
         }
 
         .slide {
@@ -158,73 +162,86 @@
             width: 100%;
             height: 100%;
             position: relative;
-            background-size: cover;
-            background-position: center;
             scroll-snap-align: start;
             scroll-snap-stop: always;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #061928;
         }
 
-        .slide::before {
-            content: '';
+        /* Ambient blurred background layer to complement widescreen displays */
+        .slide-bg-blur {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(90deg, rgba(10,48,78,0.92) 0%, rgba(10,48,78,0.45) 100%);
+            top: -10%; left: -10%; width: 120%; height: 120%;
+            object-fit: cover;
+            object-position: center;
+            filter: blur(25px) brightness(0.45);
+            transform: scale(1.08);
+            pointer-events: none;
+            z-index: 1;
         }
 
-        .hero-content {
+        /* Main artwork wrapper (zero crop, cinematic display) */
+        .slide-media {
             position: relative;
             z-index: 2;
+            width: 100%;
             height: 100%;
             display: flex;
-            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            padding: 0 10%;
-            max-width: 1200px;
-            pointer-events: none; /* Let finger touches pass straight to the slider */
         }
 
-        .hero-content h1 {
-            color: var(--clean-white);
-            font-size: 3.5rem;
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 20px;
+        .slide-media picture,
+        .slide-media img.hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Prevents edge-loss and distortion */
+            object-position: center;
+            display: block;
         }
 
-        .hero-content p {
-            color: rgba(255,255,255,0.9);
-            font-size: 1.2rem;
-            max-width: 600px;
+        /* Subtle clinical gradient vignette overlay */
+        .slide-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(90deg, rgba(10, 48, 78, 0.45) 0%, transparent 40%, transparent 60%, rgba(10, 48, 78, 0.45) 100%);
+            z-index: 3;
+            pointer-events: none;
         }
 
-        /* Carousel Navigation Buttons & Indicators */
+        /* Carousel Navigation Controls */
         .carousel-indicators {
             position: absolute;
-            bottom: 40px;
-            left: 10%;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
             gap: 12px;
             z-index: 10;
         }
 
         .indicator {
-            width: 30px;
+            width: 32px;
             height: 4px;
-            background-color: rgba(255,255,255,0.3);
+            background-color: rgba(255,255,255,0.4);
             border-radius: 2px;
             cursor: pointer;
-            transition: 0.4s ease;
+            transition: all 0.4s ease;
         }
 
         .indicator.active {
             background-color: var(--corp-teal);
             width: 55px;
+            box-shadow: 0 0 10px rgba(0, 153, 136, 0.6);
         }
 
         /* --- 4. SCROLL REVEAL ANIMATIONS --- */
         .reveal {
             opacity: 0;
-            transform: translateY(50px);
+            transform: translateY(40px);
             transition: var(--transition-smooth);
         }
 
@@ -235,20 +252,20 @@
 
         /* --- 5. THERAPEUTIC PORTFOLIO --- */
         .portfolio-section {
-            padding: 100px 5%;
+            padding: 80px 5%;
             background-color: var(--bg-light);
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 50px;
         }
 
         .section-header h2 {
             color: var(--corp-blue);
-            font-size: 2.5rem;
+            font-size: 2.3rem;
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .section-header .divider {
@@ -262,60 +279,60 @@
             max-width: 1400px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 30px;
         }
 
         .product-card {
             background: var(--clean-white);
             border-radius: 8px;
-            padding: 40px 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            padding: 35px 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             border-top: 4px solid transparent;
             transition: var(--transition-smooth);
         }
 
         .product-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
             border-top: 4px solid var(--corp-teal);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.09);
         }
 
         .product-card h3 {
             color: var(--corp-blue);
-            font-size: 1.8rem;
-            margin-bottom: 25px;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
             text-align: center;
         }
 
         .desc-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .desc-title {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .patient-title { color: var(--corp-teal); }
-        .clinical-title { color: var(--corp-light-blue); margin-top: 20px; }
+        .clinical-title { color: var(--corp-light-blue); margin-top: 15px; }
 
         .desc-text {
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             color: var(--text-muted);
-            line-height: 1.6;
+            line-height: 1.55;
         }
 
         /* --- 6. DNA STATS OVERVIEW --- */
         .stats-section {
             background-color: var(--corp-blue);
-            padding: 100px 5%;
+            padding: 80px 5%;
             position: relative;
             overflow: hidden;
         }
@@ -324,7 +341,7 @@
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M20,0 Q50,50 80,0 M20,100 Q50,50 80,100" stroke="rgba(255,255,255,0.05)" stroke-width="2" fill="none"/></svg>') repeat;
+            background: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M20,0 Q50,50 80,0 M20,100 Q50,50 80,100" stroke="rgba(255,255,255,0.04)" stroke-width="2" fill="none"/></svg>') repeat;
             opacity: 0.5;
             pointer-events: none;
         }
@@ -342,7 +359,7 @@
         .stat-box {
             flex: 1 1 200px;
             text-align: center;
-            padding: 20px;
+            padding: 15px;
             border-right: 1px solid rgba(255,255,255,0.1);
         }
 
@@ -351,15 +368,15 @@
         }
 
         .stat-number {
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             font-weight: 700;
             color: var(--clean-white);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             display: block;
         }
 
         .stat-label {
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
             color: var(--corp-teal);
             text-transform: uppercase;
@@ -368,24 +385,51 @@
 
         .stat-note {
             display: block;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             color: rgba(255,255,255,0.5);
-            margin-top: 10px;
+            margin-top: 8px;
             font-style: italic;
         }
 
-        /* --- RESPONSIVE ADJUSTMENTS --- */
-        @media (max-width: 900px) {
-            .hero-content h1 { font-size: 2.5rem; }
-            .stat-box { flex: 1 1 40%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; }
-            .stat-box:last-child { border-bottom: none; }
+        /* --- BREAKPOINTS & ADAPTIVE SIZING --- */
+        @media (max-width: 1024px) {
+            .hero {
+                aspect-ratio: 16 / 9;
+                max-height: 55vh;
+                min-height: 380px;
+            }
+            .section-header h2 { font-size: 2rem; }
+            .stat-number { font-size: 2.8rem; }
         }
 
         @media (max-width: 768px) {
-            nav { display: none; }
-            .hero-content h1 { font-size: 2rem; }
             header { justify-content: center; }
-            .hero { margin-top: 75px; }
+            nav { display: none; }
+            .hero {
+                margin-top: 65px;
+                aspect-ratio: 16 / 10;
+                min-height: 280px;
+                max-height: 45vh;
+            }
+            .carousel-indicators {
+                bottom: 12px;
+                gap: 8px;
+            }
+            .indicator {
+                width: 22px;
+                height: 3px;
+            }
+            .indicator.active {
+                width: 38px;
+            }
+            .stat-box { 
+                flex: 1 1 45%; 
+                border-right: none; 
+                border-bottom: 1px solid rgba(255,255,255,0.1); 
+                margin-bottom: 15px; 
+            }
+            .stat-box:last-child { border-bottom: none; }
+            .portfolio-section { padding: 60px 5%; }
         }
     </style>
 </head>
@@ -402,10 +446,10 @@
         </div>
     </div>
 
-    <!-- 2. Header (Logo Image: 1000155634_2.png) -->
+    <!-- 2. Header -->
     <header id="header">
         <a href="#home">
-            <img src="1000155634_2.png" alt="Genovaris Lifesciences" class="logo-img">
+            <img src="1000155634_2.png" alt="Genovaris Lifesciences" class="logo-img" width="180" height="50">
         </a>
         <nav>
             <a href="#home">Home</a>
@@ -414,49 +458,65 @@
         </nav>
     </header>
 
-    <!-- 3. Hardware-Accelerated Touch Swipe Hero Carousel -->
-    <section class="hero" id="home">
+    <!-- 3. Optimized Landscape Hero Carousel -->
+    <section class="hero" id="home" aria-label="Product Showcase">
         <div class="slider-track" id="sliderTrack">
             
-            <!-- Slide 1 (Image: 1000155653_2.jpg) -->
-            <div class="slide" style="background-image: url('1000155653_2.jpg');">
-                <div class="hero-content">
-                    <h1>Advanced Nutrition,<br>Superior Performance</h1>
-                    <p>Developing biological solutions that work hard to build and nourish the body, elevating global health standards.</p>
+            <!-- Slide 1: Protizen-HP (Prioritized LCP) -->
+            <div class="slide">
+                <img src="1000155653_2.jpg" alt="" class="slide-bg-blur" aria-hidden="true">
+                <div class="slide-media">
+                    <picture>
+                        <source srcset="1000155653_2.webp" type="image/webp">
+                        <img src="1000155653_2.jpg" alt="Protizen-HP - Advanced Nutrition, Superior Performance" class="hero-img" fetchpriority="high" loading="eager" decoding="async">
+                    </picture>
                 </div>
+                <div class="slide-overlay"></div>
             </div>
 
-            <!-- Slide 2 (Image: 1000155655_2.jpg) -->
-            <div class="slide" style="background-image: url('1000155655_2.jpg');">
-                <div class="hero-content">
-                    <h1>Nourishing Blood,<br>Enriching Life</h1>
-                    <p>Safe, effective, and essential hematological therapies because every drop counts towards a healthier future.</p>
+            <!-- Slide 2: RED-XT (Lazy Loaded) -->
+            <div class="slide">
+                <img src="1000155655_2.jpg" alt="" class="slide-bg-blur" aria-hidden="true" loading="lazy">
+                <div class="slide-media">
+                    <picture>
+                        <source srcset="1000155655_2.webp" type="image/webp">
+                        <img src="1000155655_2.jpg" alt="RED-XT - Nourishing Blood, Enriching Life" class="hero-img" loading="lazy" decoding="async">
+                    </picture>
                 </div>
+                <div class="slide-overlay"></div>
             </div>
 
-            <!-- Slide 3 (Image: 1000155657_2.jpg) -->
-            <div class="slide" style="background-image: url('1000155657_2.jpg');">
-                <div class="hero-content">
-                    <h1>Strengthening Bones,<br>Nourishing Life</h1>
-                    <p>Balanced nutrition ensuring a stronger skeletal future and unhindered mobility for patients worldwide.</p>
+            <!-- Slide 3: Bonebro (Lazy Loaded) -->
+            <div class="slide">
+                <img src="1000155657_2.jpg" alt="" class="slide-bg-blur" aria-hidden="true" loading="lazy">
+                <div class="slide-media">
+                    <picture>
+                        <source srcset="1000155657_2.webp" type="image/webp">
+                        <img src="1000155657_2.jpg" alt="Bonebro - Strengthening Bones, Nourishing Life" class="hero-img" loading="lazy" decoding="async">
+                    </picture>
                 </div>
+                <div class="slide-overlay"></div>
             </div>
 
-            <!-- Slide 4 (Image: 1000155659_2.jpg) -->
-            <div class="slide" style="background-image: url('1000155659_2.jpg');">
-                <div class="hero-content">
-                    <h1>Energy, Immunity,<br>& Cognitive Focus</h1>
-                    <p>Pioneering neuroprotective formulations for daily vitality, mental clarity, and enduring longevity.</p>
+            <!-- Slide 4: CEREBRA-CB (Lazy Loaded) -->
+            <div class="slide">
+                <img src="1000155659_2.jpg" alt="" class="slide-bg-blur" aria-hidden="true" loading="lazy">
+                <div class="slide-media">
+                    <picture>
+                        <source srcset="1000155659_2.webp" type="image/webp">
+                        <img src="1000155659_2.jpg" alt="CEREBRA-CB - Advanced Daily Nutrition for Energy, Immunity, Focus & Longevity" class="hero-img" loading="lazy" decoding="async">
+                    </picture>
                 </div>
+                <div class="slide-overlay"></div>
             </div>
 
         </div>
 
         <div class="carousel-indicators">
-            <div class="indicator active" onclick="manualJump(0)"></div>
-            <div class="indicator" onclick="manualJump(1)"></div>
-            <div class="indicator" onclick="manualJump(2)"></div>
-            <div class="indicator" onclick="manualJump(3)"></div>
+            <div class="indicator active" onclick="manualJump(0)" aria-label="Go to Slide 1"></div>
+            <div class="indicator" onclick="manualJump(1)" aria-label="Go to Slide 2"></div>
+            <div class="indicator" onclick="manualJump(2)" aria-label="Go to Slide 3"></div>
+            <div class="indicator" onclick="manualJump(3)" aria-label="Go to Slide 4"></div>
         </div>
     </section>
 
@@ -548,7 +608,7 @@
         </div>
     </section>
 
-    <!-- Native Gesture & Touch Engine -->
+    <!-- Dynamic Scripts -->
     <script>
         // Preloader Logic
         window.addEventListener('load', () => {
@@ -556,24 +616,23 @@
                 const preloader = document.getElementById('preloader');
                 preloader.style.opacity = '0';
                 setTimeout(() => { preloader.style.visibility = 'hidden'; }, 800);
-            }, 1200);
+            }, 800);
         });
 
         // Header Scroll Effect
         window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
-            if (window.scrollY > 50) header.classList.add('scrolled');
+            if (window.scrollY > 40) header.classList.add('scrolled');
             else header.classList.remove('scrolled');
         });
 
-        // Carousel Logic
+        // Landscape Carousel Controller
         const track = document.getElementById('sliderTrack');
         const slides = Array.from(track.children);
         const indicators = document.querySelectorAll('.indicator');
         let autoPlayTimer;
         let isTouching = false;
 
-        // Auto update bottom dots based on user's finger swipe position
         track.addEventListener('scroll', () => {
             const slideWidth = track.clientWidth;
             const currentIdx = Math.round(track.scrollLeft / slideWidth);
@@ -583,7 +642,6 @@
             });
         }, { passive: true });
 
-        // Pause autoplay during user manual touch interaction
         track.addEventListener('touchstart', () => {
             isTouching = true;
             clearInterval(autoPlayTimer);
@@ -621,7 +679,7 @@
 
         function startAutoPlay() {
             clearInterval(autoPlayTimer);
-            autoPlayTimer = setInterval(nextSlide, 5000);
+            autoPlayTimer = setInterval(nextSlide, 5500);
         }
 
         startAutoPlay();
@@ -648,7 +706,7 @@
             counters.forEach(counter => {
                 const target = +counter.getAttribute('data-target');
                 let count = 0;
-                const step = target / 50;
+                const step = target / 40;
                 const update = () => {
                     count += step;
                     if (count < target) {
@@ -664,3 +722,4 @@
     </script>
 </body>
 </html>
+

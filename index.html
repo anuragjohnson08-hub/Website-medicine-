@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Corporate Pharmaceutical Theme (Lupin Inspired) */
             --corp-blue: #0A304E;
             --corp-light-blue: #1C5A8D;
             --corp-teal: #009988;
@@ -23,6 +22,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Montserrat', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         html {
@@ -127,33 +127,48 @@
             width: 100%;
         }
 
-        /* --- 3. HERO CAROUSEL --- */
+        /* --- 3. HARDWARE-ACCELERATED SWIPE HERO CAROUSEL --- */
         .hero {
             position: relative;
             height: 100vh;
             width: 100%;
+            margin-top: 85px;
+            background-color: var(--corp-blue);
             overflow: hidden;
-            margin-top: 85px; /* Offset for header */
+        }
+
+        /* Native CSS Scroll Snap for ultra-smooth physical finger dragging */
+        .slider-track {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Hide scrollbar Firefox */
+        }
+
+        .slider-track::-webkit-scrollbar {
+            display: none; /* Hide scrollbar Chrome/Safari */
         }
 
         .slide {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0;
-            transition: opacity 1.2s ease-in-out;
+            flex: 0 0 100%;
+            width: 100%;
+            height: 100%;
+            position: relative;
             background-size: cover;
             background-position: center;
-        }
-
-        .slide.active {
-            opacity: 1;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
         }
 
         .slide::before {
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(90deg, rgba(10,48,78,0.9) 0%, rgba(10,48,78,0.4) 100%);
+            background: linear-gradient(90deg, rgba(10,48,78,0.92) 0%, rgba(10,48,78,0.45) 100%);
         }
 
         .hero-content {
@@ -165,6 +180,7 @@
             justify-content: center;
             padding: 0 10%;
             max-width: 1200px;
+            pointer-events: none; /* Let finger touches pass straight to the slider */
         }
 
         .hero-content h1 {
@@ -173,49 +189,39 @@
             font-weight: 700;
             line-height: 1.2;
             margin-bottom: 20px;
-            transform: translateY(40px);
-            opacity: 0;
-            transition: transform 1s ease 0.3s, opacity 1s ease 0.3s;
         }
 
         .hero-content p {
             color: rgba(255,255,255,0.9);
             font-size: 1.2rem;
             max-width: 600px;
-            transform: translateY(40px);
-            opacity: 0;
-            transition: transform 1s ease 0.5s, opacity 1s ease 0.5s;
         }
 
-        .slide.active .hero-content h1,
-        .slide.active .hero-content p {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
+        /* Carousel Navigation Buttons & Indicators */
         .carousel-indicators {
             position: absolute;
             bottom: 40px;
             left: 10%;
             display: flex;
-            gap: 15px;
+            gap: 12px;
             z-index: 10;
         }
 
         .indicator {
             width: 30px;
-            height: 3px;
-            background-color: rgba(255,255,255,0.4);
+            height: 4px;
+            background-color: rgba(255,255,255,0.3);
+            border-radius: 2px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: 0.4s ease;
         }
 
         .indicator.active {
             background-color: var(--corp-teal);
-            width: 50px;
+            width: 55px;
         }
 
-        /* --- 4. SCROLL REVEAL ANIMATIONS (Lupin Style) --- */
+        /* --- 4. SCROLL REVEAL ANIMATIONS --- */
         .reveal {
             opacity: 0;
             transform: translateY(50px);
@@ -282,7 +288,6 @@
             text-align: center;
         }
 
-        /* Dual Description Toggle Look */
         .desc-group {
             margin-bottom: 20px;
         }
@@ -315,7 +320,6 @@
             overflow: hidden;
         }
 
-        /* DNA Background Graphic */
         .stats-section::before {
             content: '';
             position: absolute;
@@ -370,7 +374,7 @@
             font-style: italic;
         }
 
-        /* --- RESPONSIVE --- */
+        /* --- RESPONSIVE ADJUSTMENTS --- */
         @media (max-width: 900px) {
             .hero-content h1 { font-size: 2.5rem; }
             .stat-box { flex: 1 1 40%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; }
@@ -378,9 +382,10 @@
         }
 
         @media (max-width: 768px) {
-            nav { display: none; } /* Simplified for mobile */
+            nav { display: none; }
             .hero-content h1 { font-size: 2rem; }
             header { justify-content: center; }
+            .hero { margin-top: 75px; }
         }
     </style>
 </head>
@@ -397,7 +402,7 @@
         </div>
     </div>
 
-    <!-- 2. Header -->
+    <!-- 2. Header (Logo Image: 1000155634_2.png) -->
     <header id="header">
         <a href="#home">
             <img src="1000155634_2.png" alt="Genovaris Lifesciences" class="logo-img">
@@ -409,46 +414,49 @@
         </nav>
     </header>
 
-    <!-- 3. Hero Carousel -->
+    <!-- 3. Hardware-Accelerated Touch Swipe Hero Carousel -->
     <section class="hero" id="home">
-        
-        <!-- Slide 1 -->
-        <div class="slide active" style="background-image: url('1000155653.jpg');">
-            <div class="hero-content">
-                <h1>Advanced Nutrition,<br>Superior Performance</h1>
-                <p>Developing biological solutions that work hard to build and nourish the body, elevating global health standards.</p>
+        <div class="slider-track" id="sliderTrack">
+            
+            <!-- Slide 1 (Image: 1000155653_2.jpg) -->
+            <div class="slide" style="background-image: url('1000155653_2.jpg');">
+                <div class="hero-content">
+                    <h1>Advanced Nutrition,<br>Superior Performance</h1>
+                    <p>Developing biological solutions that work hard to build and nourish the body, elevating global health standards.</p>
+                </div>
             </div>
-        </div>
 
-        <!-- Slide 2 -->
-        <div class="slide" style="background-image: url('1000155655.jpg');">
-            <div class="hero-content">
-                <h1>Nourishing Blood,<br>Enriching Life</h1>
-                <p>Safe, effective, and essential hematological therapies because every drop counts towards a healthier future.</p>
+            <!-- Slide 2 (Image: 1000155655_2.jpg) -->
+            <div class="slide" style="background-image: url('1000155655_2.jpg');">
+                <div class="hero-content">
+                    <h1>Nourishing Blood,<br>Enriching Life</h1>
+                    <p>Safe, effective, and essential hematological therapies because every drop counts towards a healthier future.</p>
+                </div>
             </div>
-        </div>
 
-        <!-- Slide 3 -->
-        <div class="slide" style="background-image: url('1000155657.jpg');">
-            <div class="hero-content">
-                <h1>Strengthening Bones,<br>Nourishing Life</h1>
-                <p>Balanced nutrition ensuring a stronger skeletal future and unhindered mobility for patients worldwide.</p>
+            <!-- Slide 3 (Image: 1000155657_2.jpg) -->
+            <div class="slide" style="background-image: url('1000155657_2.jpg');">
+                <div class="hero-content">
+                    <h1>Strengthening Bones,<br>Nourishing Life</h1>
+                    <p>Balanced nutrition ensuring a stronger skeletal future and unhindered mobility for patients worldwide.</p>
+                </div>
             </div>
-        </div>
 
-        <!-- Slide 4 -->
-        <div class="slide" style="background-image: url('1000155659.jpg');">
-            <div class="hero-content">
-                <h1>Energy, Immunity,<br>& Cognitive Focus</h1>
-                <p>Pioneering neuroprotective formulations for daily vitality, mental clarity, and enduring longevity.</p>
+            <!-- Slide 4 (Image: 1000155659_2.jpg) -->
+            <div class="slide" style="background-image: url('1000155659_2.jpg');">
+                <div class="hero-content">
+                    <h1>Energy, Immunity,<br>& Cognitive Focus</h1>
+                    <p>Pioneering neuroprotective formulations for daily vitality, mental clarity, and enduring longevity.</p>
+                </div>
             </div>
+
         </div>
 
         <div class="carousel-indicators">
-            <div class="indicator active" onclick="goToSlide(0)"></div>
-            <div class="indicator" onclick="goToSlide(1)"></div>
-            <div class="indicator" onclick="goToSlide(2)"></div>
-            <div class="indicator" onclick="goToSlide(3)"></div>
+            <div class="indicator active" onclick="manualJump(0)"></div>
+            <div class="indicator" onclick="manualJump(1)"></div>
+            <div class="indicator" onclick="manualJump(2)"></div>
+            <div class="indicator" onclick="manualJump(3)"></div>
         </div>
     </section>
 
@@ -460,86 +468,54 @@
         </div>
         
         <div class="grid-container">
-            <!-- Product 1 -->
+            <!-- Product 1: Protizen-HP -->
             <div class="product-card reveal" style="transition-delay: 0.1s;">
                 <h3>Protizen-HP</h3>
-                
                 <div class="desc-group">
-                    <div class="desc-title patient-title">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                        Patient Overview
-                    </div>
+                    <div class="desc-title patient-title">Patient Overview</div>
                     <div class="desc-text">Advanced daily nutrition that works hard to build your body, boost energy, and keep your immune system resilient against daily stress.</div>
                 </div>
-
                 <div class="desc-group">
-                    <div class="desc-title clinical-title">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                        Clinical Profile
-                    </div>
+                    <div class="desc-title clinical-title">Clinical Profile</div>
                     <div class="desc-text">High-quality Whey Protein enriched with essential vitamins and minerals. Formulated to support muscle synthesis, cognitive function, and bone remineralization.</div>
                 </div>
             </div>
 
-            <!-- Product 2 -->
+            <!-- Product 2: RED-XT -->
             <div class="product-card reveal" style="transition-delay: 0.2s;">
                 <h3>RED-XT</h3>
-                
                 <div class="desc-group">
-                    <div class="desc-title patient-title">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                        Patient Overview
-                    </div>
+                    <div class="desc-title patient-title">Patient Overview</div>
                     <div class="desc-text">Nourish your blood and enrich your life. A gentle, effective iron supplement to help you overcome weakness and stay active all day.</div>
                 </div>
-
                 <div class="desc-group">
-                    <div class="desc-title clinical-title">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                        Clinical Profile
-                    </div>
+                    <div class="desc-title clinical-title">Clinical Profile</div>
                     <div class="desc-text">Ferrous Ascorbate (100mg) + Folic Acid (1.5mg) + Cyanocobalamin. Superior absorption mechanism for treating iron deficiency anemia and supporting neurological health.</div>
                 </div>
             </div>
 
-            <!-- Product 3 -->
+            <!-- Product 3: Bonebro -->
             <div class="product-card reveal" style="transition-delay: 0.3s;">
                 <h3>Bonebro</h3>
-                
                 <div class="desc-group">
-                    <div class="desc-title patient-title">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                        Patient Overview
-                    </div>
+                    <div class="desc-title patient-title">Patient Overview</div>
                     <div class="desc-text">Strengthen your bones for an active, unhindered lifestyle. Provides the perfect balance of calcium to keep your skeletal structure solid and healthy.</div>
                 </div>
-
                 <div class="desc-group">
-                    <div class="desc-title clinical-title">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                        Clinical Profile
-                    </div>
+                    <div class="desc-title clinical-title">Clinical Profile</div>
                     <div class="desc-text">Calcium Carbonate (1000mg) + Vit. K2-7 + Zinc + Magnesium. Vitamin K2-7 directs calcium away from arteries directly to bones, maximizing BMD in osteoporosis management.</div>
                 </div>
             </div>
 
-            <!-- Product 4 -->
+            <!-- Product 4: CEREBRA-CB -->
             <div class="product-card reveal" style="transition-delay: 0.4s;">
                 <h3>CEREBRA-CB</h3>
-                
                 <div class="desc-group">
-                    <div class="desc-title patient-title">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                        Patient Overview
-                    </div>
+                    <div class="desc-title patient-title">Patient Overview</div>
                     <div class="desc-text">Unlock your mental focus and longevity. Advanced nutrition for your brain to enhance memory, elevate mood, and protect your mind as you age.</div>
                 </div>
-
                 <div class="desc-group">
-                    <div class="desc-title clinical-title">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                        Clinical Profile
-                    </div>
+                    <div class="desc-title clinical-title">Clinical Profile</div>
                     <div class="desc-text">Cerebroprotein (90mg) + Omega-3 Fatty Acids + Vitamins. Protects neurons, improves acetylcholine function, and provides potent neuroprotective efficacy.</div>
                 </div>
             </div>
@@ -549,138 +525,140 @@
     <!-- 5. Stats Overview -->
     <section class="stats-section" id="impact">
         <div class="stats-container reveal">
-            
             <div class="stat-box">
                 <span class="stat-number" data-target="100">0</span>
                 <span class="stat-label">Nationwide Reach</span>
                 <span class="stat-note">% Coverage</span>
             </div>
-
             <div class="stat-box">
                 <span class="stat-number">10k+</span>
                 <span class="stat-label">Trusted By</span>
                 <span class="stat-note">Clinicians</span>
             </div>
-
             <div class="stat-box">
                 <span class="stat-number">24/7</span>
                 <span class="stat-label">Availability</span>
                 <span class="stat-note">Continuous Supply</span>
             </div>
-
             <div class="stat-box">
                 <span class="stat-number">99+<span style="font-size: 2rem;">T</span></span>
                 <span class="stat-label">Efficacy Rate</span>
                 <span class="stat-note">(*T as in testing phase metrics)</span>
             </div>
-
         </div>
     </section>
 
-    <!-- Scripts -->
+    <!-- Native Gesture & Touch Engine -->
     <script>
         // Preloader Logic
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const preloader = document.getElementById('preloader');
                 preloader.style.opacity = '0';
-                setTimeout(() => {
-                    preloader.style.visibility = 'hidden';
-                }, 800);
-            }, 1500); // Minimum display time for the DNA animation
+                setTimeout(() => { preloader.style.visibility = 'hidden'; }, 800);
+            }, 1200);
         });
 
         // Header Scroll Effect
         window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
+            if (window.scrollY > 50) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
         });
 
-        // Hero Carousel Logic
-        let slideIndex = 0;
-        const slides = document.querySelectorAll('.slide');
+        // Carousel Logic
+        const track = document.getElementById('sliderTrack');
+        const slides = Array.from(track.children);
         const indicators = document.querySelectorAll('.indicator');
-        let slideInterval;
+        let autoPlayTimer;
+        let isTouching = false;
 
-        function showSlide(index) {
-            slides.forEach(s => s.classList.remove('active'));
-            indicators.forEach(i => i.classList.remove('active'));
+        // Auto update bottom dots based on user's finger swipe position
+        track.addEventListener('scroll', () => {
+            const slideWidth = track.clientWidth;
+            const currentIdx = Math.round(track.scrollLeft / slideWidth);
             
-            slideIndex = index;
-            if(slideIndex >= slides.length) slideIndex = 0;
-            if(slideIndex < 0) slideIndex = slides.length - 1;
-            
-            slides[slideIndex].classList.add('active');
-            indicators[slideIndex].classList.add('active');
-        }
+            indicators.forEach((dot, idx) => {
+                dot.classList.toggle('active', idx === currentIdx);
+            });
+        }, { passive: true });
+
+        // Pause autoplay during user manual touch interaction
+        track.addEventListener('touchstart', () => {
+            isTouching = true;
+            clearInterval(autoPlayTimer);
+        }, { passive: true });
+
+        track.addEventListener('touchend', () => {
+            isTouching = false;
+            startAutoPlay();
+        }, { passive: true });
 
         function nextSlide() {
-            showSlide(slideIndex + 1);
+            if (isTouching) return;
+            const slideWidth = track.clientWidth;
+            let nextIndex = Math.round(track.scrollLeft / slideWidth) + 1;
+            
+            if (nextIndex >= slides.length) {
+                nextIndex = 0;
+            }
+            
+            track.scrollTo({
+                left: nextIndex * slideWidth,
+                behavior: 'smooth'
+            });
         }
 
-        function goToSlide(index) {
-            clearInterval(slideInterval);
-            showSlide(index);
-            startSlider();
+        function manualJump(index) {
+            clearInterval(autoPlayTimer);
+            const slideWidth = track.clientWidth;
+            track.scrollTo({
+                left: index * slideWidth,
+                behavior: 'smooth'
+            });
+            startAutoPlay();
         }
 
-        function startSlider() {
-            slideInterval = setInterval(nextSlide, 6000);
+        function startAutoPlay() {
+            clearInterval(autoPlayTimer);
+            autoPlayTimer = setInterval(nextSlide, 5000);
         }
-        
-        startSlider();
 
-        // Scroll Reveal Animation (Intersection Observer)
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.15
-        };
+        startAutoPlay();
 
-        const observer = new IntersectionObserver((entries, observer) => {
+        // Scroll Observer
+        const observer = new IntersectionObserver((entries, obs) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    
-                    // Trigger number counter if it's the stats section
-                    if(entry.target.classList.contains('stats-container')) {
-                        runCounter();
-                    }
-                    
-                    observer.unobserve(entry.target);
+                    if (entry.target.classList.contains('stats-container')) runCounter();
+                    obs.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.15 });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // Number Counter Animation for Stats
+        // Stats Counter
         let counted = false;
         function runCounter() {
             if (counted) return;
             counted = true;
-            
             const counters = document.querySelectorAll('.stat-number[data-target]');
-            const speed = 200; 
-
             counters.forEach(counter => {
-                const updateCount = () => {
-                    const target = +counter.getAttribute('data-target');
-                    const count = +counter.innerText;
-                    const inc = target / speed;
-
+                const target = +counter.getAttribute('data-target');
+                let count = 0;
+                const step = target / 50;
+                const update = () => {
+                    count += step;
                     if (count < target) {
-                        counter.innerText = Math.ceil(count + inc);
-                        setTimeout(updateCount, 15);
+                        counter.innerText = Math.ceil(count);
+                        setTimeout(update, 20);
                     } else {
                         counter.innerText = target;
                     }
                 };
-                updateCount();
+                update();
             });
         }
     </script>

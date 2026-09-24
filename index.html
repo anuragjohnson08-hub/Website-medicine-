@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Genovaris Lifesciences - Advanced Medical Solutions</title>
+    <title>Genovaris Lifesciences - Biological Solutions</title>
     <style>
         :root {
-            /* Synced to Genovaris Logo Colors */
-            --geno-blue: #2A61AE;
-            --varis-green: #4CAF50;
-            --logo-dark: #000000;
-            --soft-bg: #f5f8f6;
+            /* Biological Medical Theme infused with Anime-style Bioluminescence */
+            --bio-deep-blue: #091325;
+            --med-blue: #1A3A6E;
+            --dna-cyan: #00E5FF;
+            --cell-bloom: #FF4081; /* Retaining the vibrant blooming aesthetic within a cellular context */
             --clean-white: #ffffff;
-            --text-dark: #1a1a1a;
-            --text-light: #555555;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --text-dark: #1e293b;
+            --text-light: #94a3b8;
         }
 
         * {
@@ -23,56 +24,71 @@
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
-        /* Fade-in Animation */
-        @keyframes siteFadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         html {
-            /* Outer background to contrast the 60rem site container */
-            background-color: #121212; 
+            scroll-behavior: smooth;
+            background-color: var(--bio-deep-blue);
         }
 
         body {
             background-color: var(--clean-white);
             color: var(--text-dark);
             line-height: 1.6;
-            
-            /* Capping the site width at 60rem */
-            max-width: 60rem;
-            margin: 0 auto;
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
-            min-height: 100vh;
-            
-            /* Apply the fade-in intro effect */
-            animation: siteFadeIn 1.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
-            opacity: 0;
+            overflow-x: hidden;
+            /* Biological matrix styled as blooming molecular branches */
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 229, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 64, 129, 0.1) 0%, transparent 40%);
+            background-attachment: fixed;
         }
 
-        /* Navigation Bar - Dark to seamlessly blend with the logo's black background */
+        /* --- 1. INTRO ANIMATION --- */
+        #intro-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            background-color: var(--bio-deep-blue);
+            background-image: radial-gradient(circle at center, var(--med-blue) 0%, var(--bio-deep-blue) 100%);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease;
+        }
+
+        .intro-logo {
+            width: 250px;
+            max-width: 80vw;
+            filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.5));
+            animation: moveToHeader 2s 1.5s forwards; 
+        }
+
+        @keyframes moveToHeader {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; filter: drop-shadow(0 0 30px var(--dna-cyan)); }
+            80% { opacity: 0; }
+            100% { 
+                transform: translate(calc(-50vw + 100px), calc(-50vh + 40px)) scale(0.3); 
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        /* --- HEADER --- */
         header {
-            background-color: var(--logo-dark);
+            background-color: var(--bio-deep-blue);
             padding: 0.8rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid var(--varis-green);
+            border-bottom: 2px solid var(--dna-cyan);
+            box-shadow: 0 4px 20px rgba(0, 229, 255, 0.2);
             position: sticky;
             top: 0;
             z-index: 1000;
+            opacity: 0;
+            animation: fadeInHeader 0.5s ease 3s forwards;
         }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
+        @keyframes fadeInHeader {
+            to { opacity: 1; }
         }
 
         .logo-img {
@@ -80,305 +96,588 @@
             object-fit: contain;
         }
 
-        nav {
-            display: flex;
-            gap: 1.5rem;
-        }
-
         nav a {
             text-decoration: none;
             color: var(--clean-white);
             font-weight: 500;
-            transition: color 0.3s ease;
-            font-size: 0.95rem;
+            margin-left: 1.5rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            transition: all 0.3s;
         }
 
-        nav a:hover {
-            color: var(--varis-green);
+        nav a:hover { 
+            color: var(--dna-cyan); 
+            text-shadow: 0 0 8px var(--dna-cyan);
         }
 
-        /* Trustworthy Health Banner with Anime-Style Blooming Tree Motif */
-        .banner {
-            background: 
-                linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(42, 97, 174, 0.6) 50%, rgba(76, 175, 80, 0.4) 100%),
-                url('https://images.unsplash.com/photo-1522383225653-ed111181a951?auto=format&fit=crop&q=80&w=2000') center/cover no-repeat;
-            color: var(--clean-white);
-            text-align: center;
-            padding: 100px 20px;
+        /* --- 2. HERO SLIDER --- */
+        .slider-container {
             position: relative;
+            width: 100%;
+            height: 70vh;
+            min-height: 500px;
             overflow: hidden;
-            border-bottom: 4px solid var(--geno-blue);
+            background: var(--bio-deep-blue);
         }
 
-        .banner::before {
+        .slide {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0;
+            transition: opacity 1s, transform 5s linear;
+            transform: scale(1.05);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .slider-container::after {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+            bottom: 0; left: 0; right: 0; height: 40%;
+            background: linear-gradient(to top, var(--bio-deep-blue), transparent);
             pointer-events: none;
         }
 
-        .banner h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            letter-spacing: 1px;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
-            position: relative;
+        .slider-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 10;
         }
 
-        .banner p {
-            font-size: 1.1rem;
-            max-width: 600px;
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid var(--dna-cyan);
+            background: transparent;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .dot.active {
+            background: var(--dna-cyan);
+            box-shadow: 0 0 12px var(--dna-cyan);
+        }
+
+        /* --- 3. DUAL-AUDIENCE PRODUCT DESCRIPTIONS --- */
+        .products-section {
+            padding: 80px 5%;
+            max-width: 1400px;
             margin: 0 auto;
-            font-weight: 300;
-            position: relative;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Container for Sections */
-        .container {
-            padding: 60px 20px;
+            background: var(--clean-white);
         }
 
         .section-title {
             text-align: center;
-            color: var(--logo-dark);
-            font-size: 2rem;
-            margin-bottom: 40px;
-            position: relative;
+            color: var(--med-blue);
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--geno-blue), var(--varis-green));
-            margin: 15px auto 0;
-            border-radius: 2px;
-        }
-
-        /* Product Cards */
         .products-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
         }
 
         .product-card {
-            background-color: var(--soft-bg);
+            background: #f8fafc;
             border-radius: 12px;
-            padding: 30px 20px;
-            width: 100%;
-            max-width: 280px;
-            text-align: center;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-top: 4px solid var(--geno-blue);
-            border-bottom: 4px solid var(--varis-green);
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(26, 58, 110, 0.08);
+            border: 1px solid rgba(26, 58, 110, 0.1);
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Top highlight representing a glowing biological membrane */
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--dna-cyan), var(--cell-bloom));
         }
 
         .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 30px rgba(42, 97, 174, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(26, 58, 110, 0.15);
         }
 
-        .product-icon {
+        .product-title {
+            font-size: 1.6rem;
+            color: var(--med-blue);
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .dual-desc {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .desc-box {
+            padding: 18px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            position: relative;
+        }
+
+        .desc-simple {
+            background: rgba(0, 229, 255, 0.05);
+            border-left: 4px solid var(--dna-cyan);
+        }
+
+        .desc-clinical {
+            background: rgba(26, 58, 110, 0.05);
+            border-left: 4px solid var(--med-blue);
+        }
+
+        .desc-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .desc-simple .desc-title { color: var(--med-blue); }
+        .desc-clinical .desc-title { color: var(--text-dark); }
+
+        /* --- 4. DNA STATS OVERVIEW --- */
+        .dna-section {
+            background-color: var(--bio-deep-blue);
+            color: var(--clean-white);
+            padding: 100px 20px 140px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Biological grid background */
+        .dna-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            pointer-events: none;
+        }
+
+        .dna-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 70px;
+            padding: 40px 0;
+        }
+
+        /* The central vertical DNA axis */
+        .dna-strand {
+            position: absolute;
+            top: 0; bottom: 0; left: 50%;
+            width: 2px;
+            background: rgba(0, 229, 255, 0.2);
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        /* The Flashing White DNA Pulse Animation */
+        .dna-pulse {
+            position: absolute;
+            top: 0; left: 50%;
+            width: 4px;
+            height: 120px;
+            background: #ffffff;
+            box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.9), 0 0 40px 15px var(--dna-cyan);
+            transform: translateX(-50%);
+            border-radius: 10px;
+            z-index: 2;
+            animation: pulseTravel 4s infinite alternate;
+        }
+
+        @keyframes pulseTravel {
+            0% { top: 0; opacity: 0.1; }
+            50% { opacity: 1; filter: brightness(1.8); }
+            100% { top: calc(100% - 120px); opacity: 0.1; }
+        }
+
+        /* Medical Data Nodes mimicking branching dendrites/chromosomes */
+        .dna-node {
+            position: relative;
+            z-index: 3;
+            width: 42%;
+            background: rgba(10, 37, 64, 0.6);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            padding: 25px;
+            border-radius: 8px;
+            backdrop-filter: blur(8px);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .dna-node:hover {
+            transform: scale(1.05);
+            border-color: var(--dna-cyan);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+        }
+
+        .dna-node.left {
+            align-self: flex-start;
+            border-right: 4px solid var(--cell-bloom);
+        }
+
+        .dna-node.right {
+            align-self: flex-end;
+            border-left: 4px solid var(--dna-cyan);
+        }
+
+        /* Connecting biological synthesis lines */
+        .dna-node::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 14vw;
+            max-width: 120px;
+            height: 1px;
+            background: rgba(0, 229, 255, 0.4);
+            z-index: 0;
+            box-shadow: 0 0 5px var(--dna-cyan);
+        }
+
+        .dna-node.left::after { right: -14vw; }
+        .dna-node.right::after { left: -14vw; }
+
+        @media (min-width: 900px) {
+            .dna-node.left::after { right: -120px; }
+            .dna-node.right::after { left: -120px; }
+        }
+
+        .dna-node h3 {
+            font-size: 1.4rem;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .dna-node .value {
             font-size: 2.8rem;
-            margin-bottom: 15px;
-            background: -webkit-linear-gradient(45deg, var(--geno-blue), var(--varis-green));
+            font-weight: 700;
+            background: -webkit-linear-gradient(45deg, var(--clean-white), var(--dna-cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .product-card h3 {
-            color: var(--geno-blue);
-            margin-bottom: 10px;
-            font-size: 1.25rem;
+        .dna-node.left .value {
+            background: -webkit-linear-gradient(45deg, var(--clean-white), var(--cell-bloom));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .product-card p {
-            color: var(--text-light);
-            font-size: 0.9rem;
-        }
-
-        /* About Us Section */
-        .about-section {
-            background-color: var(--clean-white);
-        }
-
-        .about-content {
-            text-align: center;
-            font-size: 1.05rem;
-            color: var(--text-dark);
-            max-width: 750px;
-            margin: 0 auto;
-        }
-
-        /* Contact Form */
-        .contact-form {
-            background: var(--soft-bg);
-            padding: 35px;
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        .form-group label {
+        .dna-note {
             display: block;
-            margin-bottom: 6px;
-            color: var(--geno-blue);
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ced4da;
-            border-radius: 6px;
-            font-size: 0.95rem;
-            transition: border-color 0.3s ease;
-            background-color: var(--clean-white);
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--varis-green);
-            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
-        }
-
-        button.submit-btn {
-            width: 100%;
-            background: linear-gradient(90deg, var(--geno-blue), var(--varis-green));
-            color: var(--clean-white);
-            border: none;
-            padding: 14px;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: opacity 0.3s ease;
-        }
-
-        button.submit-btn:hover {
-            opacity: 0.9;
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--logo-dark);
-            color: var(--clean-white);
-            text-align: center;
-            padding: 25px;
             font-size: 0.85rem;
-            border-top: 2px solid var(--geno-blue);
+            color: #64748b;
+            margin-top: 8px;
+            font-style: italic;
         }
 
-        /* Responsive Design */
+        /* --- 5. FPS CAPPING LOGIC (Simulated via step functions) --- */
+        /* 90 FPS Cap */
+        body.fps-90 .intro-logo { animation-timing-function: steps(180, end) !important; }
+        body.fps-90 .dna-pulse { animation-timing-function: steps(360, end) !important; }
+        body.fps-90 .slide { transition-timing-function: steps(90, end) !important; }
+
+        /* 50 FPS Cap */
+        body.fps-50 .intro-logo { animation-timing-function: steps(100, end) !important; }
+        body.fps-50 .dna-pulse { animation-timing-function: steps(200, end) !important; }
+        body.fps-50 .slide { transition-timing-function: steps(50, end) !important; }
+
+        /* --- 6. FIXED FPS CONTROLLER UI --- */
+        #fps-controller {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(9, 19, 37, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 10px 25px;
+            border-radius: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            z-index: 10000;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .fps-label {
+            font-weight: 600;
+            color: var(--clean-white);
+            font-size: 0.9rem;
+            margin-right: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .fps-btn {
+            background: transparent;
+            border: 1px solid var(--text-light);
+            color: var(--text-light);
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .fps-btn.active {
+            background: rgba(0, 229, 255, 0.1);
+            border-color: var(--dna-cyan);
+            color: var(--dna-cyan);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+        }
+
+        .fps-btn:not(.active):hover {
+            border-color: var(--clean-white);
+            color: var(--clean-white);
+        }
+
         @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                gap: 15px;
-                padding: 1rem;
-            }
-            .logo-img {
-                height: 50px;
-            }
-            .banner h1 {
-                font-size: 2rem;
-            }
-            .banner p {
-                font-size: 0.95rem;
-            }
+            nav { display: none; }
+            header { justify-content: center; }
+            .dna-container { gap: 40px; }
+            .dna-node { width: 85%; align-self: center !important; border-left: none; border-right: none; border-bottom: 3px solid var(--dna-cyan); }
+            .dna-node.left { border-bottom: 3px solid var(--cell-bloom); }
+            .dna-node::after { display: none; }
+            .dna-strand, .dna-pulse { left: 5%; }
+            #fps-controller { width: 90%; justify-content: center; bottom: 15px; padding: 12px; }
+            .fps-label { display: none; }
         }
     </style>
 </head>
-<body>
+<body class="fps-90">
 
-    <!-- Navigation Bar (Dark matched to logo background) -->
+    <!-- 1. Intro Animation Overlay -->
+    <div id="intro-overlay">
+        <img src="1000155634_2.png" alt="Genovaris Lifesciences" class="intro-logo" id="intro-logo">
+    </div>
+
+    <!-- Header -->
     <header>
-        <a href="#home" class="logo-container">
-            <img src="1000155634.png" alt="Genovaris Lifesciences Logo" class="logo-img">
+        <a href="#home">
+            <img src="1000155634_2.png" alt="Genovaris Lifesciences Logo" class="logo-img">
         </a>
         <nav>
-            <a href="#home">Home</a>
-            <a href="#products">Products</a>
-            <a href="#about">About Us</a>
-            <a href="#contact">Contact</a>
+            <a href="#products">Pharmacology</a>
+            <a href="#overview">Biological Data</a>
         </nav>
     </header>
 
-    <!-- Trustworthy Health Banner (Anime blooming tree overlay with brand colors) -->
-    <section id="home" class="banner">
-        <h1>Innovating Life. Enhancing Tomorrow.</h1>
-        <p>Harnessing the power of advanced biosciences and the resilience of nature to deliver reliable, cutting-edge pharmaceutical care for a healthier future.</p>
+    <!-- 2. Hero Image Slider -->
+    <section class="slider-container" id="home">
+        <div class="slide active" style="background-image: url('1000155653.jpg');"></div>
+        <div class="slide" style="background-image: url('1000155655.jpg');"></div>
+        <div class="slide" style="background-image: url('1000155657.jpg');"></div>
+        <div class="slide" style="background-image: url('1000155659.jpg');"></div>
+        
+        <div class="slider-controls">
+            <div class="dot active" onclick="currentSlide(0)"></div>
+            <div class="dot" onclick="currentSlide(1)"></div>
+            <div class="dot" onclick="currentSlide(2)"></div>
+            <div class="dot" onclick="currentSlide(3)"></div>
+        </div>
     </section>
 
-    <!-- Products Section -->
-    <section id="products" class="container">
-        <h2 class="section-title">Core Therapeutic Solutions</h2>
+    <!-- 3. Dual-Audience Product Descriptions -->
+    <section id="products" class="products-section">
+        <h2 class="section-title">Biological Therapeutics</h2>
         <div class="products-grid">
+            
             <div class="product-card">
-                <div class="product-icon">🧬</div>
-                <h3>GenoCardio Plus</h3>
-                <p>Advanced cardiovascular support formulated with our proprietary genetic markers to maintain optimal heart function and cellular health.</p>
+                <div class="product-title">Protizen-HP</div>
+                <div class="dual-desc">
+                    <div class="desc-box desc-simple">
+                        <div class="desc-title">⚗️ Patient Overview</div>
+                        Daily foundational nutrition designed to optimize physical endurance, repair muscular tissue, and elevate baseline immunity against environmental stress.
+                    </div>
+                    <div class="desc-box desc-clinical">
+                        <div class="desc-title">🧬 Pharmacological Profile</div>
+                        Premium Whey Protein isolate matrix fortified with micro-nutrients. Clinically indicated for muscle synthesis, neurotransmitter regulation, and skeletal density maintenance.
+                    </div>
+                </div>
             </div>
+
             <div class="product-card">
-                <div class="product-icon">🌿</div>
-                <h3>VarisNeuro Sync</h3>
-                <p>Clinically validated cognitive therapy utilizing botanical synthesis to protect neural pathways and sustain overall brain vitality.</p>
+                <div class="product-title">RED-XT</div>
+                <div class="dual-desc">
+                    <div class="desc-box desc-simple">
+                        <div class="desc-title">⚗️ Patient Overview</div>
+                        A gentle and highly effective hematological supplement engineered to combat fatigue, enrich blood oxygen levels, and sustain daily vitality.
+                    </div>
+                    <div class="desc-box desc-clinical">
+                        <div class="desc-title">🧬 Pharmacological Profile</div>
+                        Ferrous Ascorbate (100mg) + Folic Acid (1.5mg) + Cyanocobalamin complex. Demonstrates superior bioavailability for the management of iron deficiency anemia and RBC synthesis.
+                    </div>
+                </div>
             </div>
+
             <div class="product-card">
-                <div class="product-icon">🛡️</div>
-                <h3>ImmunoVaris Forte</h3>
-                <p>A comprehensive immune enhancement system developed for rapid cellular absorption and fortified, long-lasting defense mechanisms.</p>
+                <div class="product-title">Bonebro</div>
+                <div class="dual-desc">
+                    <div class="desc-box desc-simple">
+                        <div class="desc-title">⚗️ Patient Overview</div>
+                        Comprehensive skeletal support formulation. Delivers precisely balanced calcium directly to your bones, ensuring structural integrity and mobility.
+                    </div>
+                    <div class="desc-box desc-clinical">
+                        <div class="desc-title">🧬 Pharmacological Profile</div>
+                        Calcium Carbonate (1000mg) + Vit. K2-7 + Zinc + Magnesium. Vitamin K2-7 specifically inhibits arterial calcification while maximizing osteocalcin activation for BMD enhancement.
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-title">CEREBRA-CB</div>
+                <div class="dual-desc">
+                    <div class="desc-box desc-simple">
+                        <div class="desc-title">⚗️ Patient Overview</div>
+                        Advanced cognitive nutrition targeting mental clarity, mood stabilization, and the long-term preservation of your neurological health.
+                    </div>
+                    <div class="desc-box desc-clinical">
+                        <div class="desc-title">🧬 Pharmacological Profile</div>
+                        Cerebroprotein (90mg) + Omega-3 Fatty Acids + Essential Vitamins. Exerts potent neuroprotective effects, enhances cholinergic transmission, and mitigates oxidative neural stress.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 4. DNA Stats Overview -->
+    <section id="overview" class="dna-section">
+        <div class="dna-container">
+            <div class="dna-strand"></div>
+            <div class="dna-pulse"></div>
+
+            <div class="dna-node left">
+                <h3>Distribution Matrix</h3>
+                <div class="value">Nationwide</div>
+            </div>
+
+            <div class="dna-node right">
+                <h3>Clinical Trust</h3>
+                <div class="value">Physicians</div>
+            </div>
+
+            <div class="dna-node left">
+                <h3>Supply Logistics</h3>
+                <div class="value">24/7 Availability</div>
+            </div>
+
+            <div class="dna-node right">
+                <h3>Efficacy Rate</h3>
+                <div class="value">99+T</div>
+                <span class="dna-note">(*T: Ongoing controlled testing metrics)</span>
             </div>
         </div>
     </section>
 
-    <!-- About Us Section -->
-    <section id="about" class="about-section container">
-        <h2 class="section-title">About Genovaris</h2>
-        <div class="about-content">
-            <p>At <strong>Genovaris Lifesciences</strong>, we believe the future of medicine lies at the intersection of genetic innovation and natural vitality. Guided by our blooming tree philosophy—representing continuous renewal and enduring strength—our dedicated team of researchers and medical professionals work tirelessly to develop treatments that meet the most rigorous global standards. From the DNA sequence to the blooming leaf, our mission is to elevate the quality of human life worldwide.</p>
-        </div>
-    </section>
+    <!-- 5. Fixed FPS Controller (Screen Attached) -->
+    <div id="fps-controller">
+        <span class="fps-label">Render Engine (FPS):</span>
+        <button id="btn-90fps" class="fps-btn active">90 FPS</button>
+        <button id="btn-50fps" class="fps-btn">50 FPS</button>
+    </div>
 
-    <!-- Contact Us Section -->
-    <section id="contact" class="container">
-        <h2 class="section-title">Connect With Us</h2>
-        <form class="contact-form" onsubmit="event.preventDefault(); alert('Inquiry sent successfully to Genovaris Lifesciences!');">
-            <div class="form-group">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" required placeholder="Dr. Jane Doe">
-            </div>
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" required placeholder="jane.doe@clinic.com">
-            </div>
-            <div class="form-group">
-                <label for="message">Your Inquiry</label>
-                <textarea id="message" name="message" rows="4" required placeholder="How can Genovaris support your medical practice or personal health needs?"></textarea>
-            </div>
-            <button type="submit" class="submit-btn">Send Message</button>
-        </form>
-    </section>
+    <!-- Scripts -->
+    <script>
+        // Intro Overlay Removal
+        document.addEventListener("DOMContentLoaded", () => {
+            setTimeout(() => {
+                const overlay = document.getElementById('intro-overlay');
+                overlay.style.opacity = '0';
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                }, 800);
+            }, 3500); 
+        });
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2026 Genovaris Lifesciences. Innovating Life. Enhancing Tomorrow. All Rights Reserved.</p>
-    </footer>
+        // Image Slider Logic
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        let slideInterval;
 
+        function showSlide(index) {
+            slides.forEach(s => s.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            
+            slideIndex = index;
+            if(slideIndex >= slides.length) slideIndex = 0;
+            if(slideIndex < 0) slideIndex = slides.length - 1;
+            
+            slides[slideIndex].classList.add('active');
+            dots[slideIndex].classList.add('active');
+        }
+
+        function nextSlide() {
+            showSlide(slideIndex + 1);
+        }
+
+        function currentSlide(index) {
+            clearInterval(slideInterval);
+            showSlide(index);
+            startSlider();
+        }
+
+        function startSlider() {
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+        startSlider();
+
+        // FPS Controller Logic
+        const btn90 = document.getElementById('btn-90fps');
+        const btn50 = document.getElementById('btn-50fps');
+
+        btn90.addEventListener('click', () => {
+            document.body.classList.remove('fps-50');
+            document.body.classList.add('fps-90');
+            btn90.classList.add('active');
+            btn50.classList.remove('active');
+        });
+
+        btn50.addEventListener('click', () => {
+            document.body.classList.remove('fps-90');
+            document.body.classList.add('fps-50');
+            btn50.classList.add('active');
+            btn90.classList.remove('active');
+        });
+    </script>
 </body>
 </html>
-

@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AokiPharma - Advanced Medical Solutions</title>
+    <title>Genovaris Lifesciences - Advanced Medical Solutions</title>
     <style>
         :root {
-            /* Medical Blue and Clean White Theme */
-            --primary-blue: #1e88e5;
-            --deep-blue: #0d47a1;
-            --soft-blue: #e3f2fd;
+            /* Synced to Genovaris Logo Colors */
+            --geno-blue: #2A61AE;
+            --varis-green: #4CAF50;
+            --logo-dark: #000000;
+            --soft-bg: #f5f8f6;
             --clean-white: #ffffff;
-            --text-dark: #2c3e50;
-            --text-light: #7f8c8d;
+            --text-dark: #1a1a1a;
+            --text-light: #555555;
         }
 
         * {
@@ -22,39 +23,61 @@
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
-        body {
-            background-color: var(--soft-blue);
-            color: var(--text-dark);
-            line-height: 1.6;
+        /* Fade-in Animation */
+        @keyframes siteFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* Navigation Bar */
-        header {
+        html {
+            /* Outer background to contrast the 60rem site container */
+            background-color: #121212; 
+        }
+
+        body {
             background-color: var(--clean-white);
-            padding: 1rem 5%;
+            color: var(--text-dark);
+            line-height: 1.6;
+            
+            /* Capping the site width at 60rem */
+            max-width: 60rem;
+            margin: 0 auto;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            min-height: 100vh;
+            
+            /* Apply the fade-in intro effect */
+            animation: siteFadeIn 1.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+            opacity: 0;
+        }
+
+        /* Navigation Bar - Dark to seamlessly blend with the logo's black background */
+        header {
+            background-color: var(--logo-dark);
+            padding: 0.8rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-bottom: 2px solid var(--varis-green);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--deep-blue);
-            text-decoration: none;
+        .logo-container {
             display: flex;
             align-items: center;
-            gap: 10px;
+            text-decoration: none;
         }
 
-        /* Stylized aesthetic element */
-        .logo-icon {
-            color: #ffb7c5; /* Soft blooming petal accent */
-            font-size: 2rem;
+        .logo-img {
+            height: 60px;
+            object-fit: contain;
         }
 
         nav {
@@ -64,65 +87,66 @@
 
         nav a {
             text-decoration: none;
-            color: var(--primary-blue);
+            color: var(--clean-white);
             font-weight: 500;
             transition: color 0.3s ease;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         nav a:hover {
-            color: var(--deep-blue);
+            color: var(--varis-green);
         }
 
         /* Trustworthy Health Banner with Anime-Style Blooming Tree Motif */
         .banner {
-            /* Incorporating an illustrated/anime-like blooming cherry blossom tree aesthetic overlaid with medical blue */
             background: 
-                linear-gradient(135deg, rgba(13, 71, 161, 0.85) 0%, rgba(30, 136, 229, 0.75) 100%),
+                linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(42, 97, 174, 0.6) 50%, rgba(76, 175, 80, 0.4) 100%),
                 url('https://images.unsplash.com/photo-1522383225653-ed111181a951?auto=format&fit=crop&q=80&w=2000') center/cover no-repeat;
             color: var(--clean-white);
             text-align: center;
-            padding: 120px 20px;
+            padding: 100px 20px;
             position: relative;
             overflow: hidden;
+            border-bottom: 4px solid var(--geno-blue);
         }
 
-        /* Subtle glowing atmospheric effect */
         .banner::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 60%);
+            background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
             pointer-events: none;
         }
 
         .banner h1 {
-            font-size: 3rem;
+            font-size: 2.5rem;
             margin-bottom: 15px;
             letter-spacing: 1px;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
             position: relative;
         }
 
         .banner p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             max-width: 600px;
             margin: 0 auto;
             font-weight: 300;
             position: relative;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
         }
 
         /* Container for Sections */
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 80px 20px;
+            padding: 60px 20px;
         }
 
         .section-title {
             text-align: center;
-            color: var(--deep-blue);
-            font-size: 2.2rem;
-            margin-bottom: 50px;
+            color: var(--logo-dark);
+            font-size: 2rem;
+            margin-bottom: 40px;
             position: relative;
         }
 
@@ -130,8 +154,8 @@
             content: '';
             display: block;
             width: 60px;
-            height: 4px;
-            background-color: var(--primary-blue);
+            height: 3px;
+            background: linear-gradient(90deg, var(--geno-blue), var(--varis-green));
             margin: 15px auto 0;
             border-radius: 2px;
         }
@@ -141,118 +165,123 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 30px;
+            gap: 20px;
         }
 
         .product-card {
-            background-color: var(--clean-white);
+            background-color: var(--soft-bg);
             border-radius: 12px;
             padding: 30px 20px;
             width: 100%;
-            max-width: 340px;
+            max-width: 280px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-bottom: 5px solid var(--primary-blue);
+            border-top: 4px solid var(--geno-blue);
+            border-bottom: 4px solid var(--varis-green);
         }
 
         .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(30, 136, 229, 0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(42, 97, 174, 0.15);
         }
 
         .product-icon {
-            font-size: 3rem;
-            color: var(--primary-blue);
-            margin-bottom: 20px;
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            background: -webkit-linear-gradient(45deg, var(--geno-blue), var(--varis-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .product-card h3 {
-            color: var(--deep-blue);
-            margin-bottom: 15px;
-            font-size: 1.4rem;
+            color: var(--geno-blue);
+            margin-bottom: 10px;
+            font-size: 1.25rem;
         }
 
         .product-card p {
             color: var(--text-light);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
         /* About Us Section */
         .about-section {
             background-color: var(--clean-white);
-            padding: 80px 20px;
         }
 
         .about-content {
-            max-width: 800px;
-            margin: 0 auto;
             text-align: center;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--text-dark);
+            max-width: 750px;
+            margin: 0 auto;
         }
 
         /* Contact Form */
         .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background: var(--clean-white);
-            padding: 40px;
+            background: var(--soft-bg);
+            padding: 35px;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            color: var(--deep-blue);
+            margin-bottom: 6px;
+            color: var(--geno-blue);
             font-weight: 600;
+            font-size: 0.9rem;
         }
 
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 12px 15px;
+            padding: 12px;
             border: 1px solid #ced4da;
             border-radius: 6px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             transition: border-color 0.3s ease;
+            background-color: var(--clean-white);
         }
 
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: var(--primary-blue);
+            border-color: var(--varis-green);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
         }
 
         button.submit-btn {
             width: 100%;
-            background-color: var(--primary-blue);
+            background: linear-gradient(90deg, var(--geno-blue), var(--varis-green));
             color: var(--clean-white);
             border: none;
-            padding: 15px;
-            font-size: 1.1rem;
+            padding: 14px;
+            font-size: 1rem;
             font-weight: 600;
             border-radius: 6px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: opacity 0.3s ease;
         }
 
         button.submit-btn:hover {
-            background-color: var(--deep-blue);
+            opacity: 0.9;
         }
 
         /* Footer */
         footer {
-            background-color: var(--deep-blue);
+            background-color: var(--logo-dark);
             color: var(--clean-white);
             text-align: center;
-            padding: 25px 20px;
-            font-size: 0.9rem;
+            padding: 25px;
+            font-size: 0.85rem;
+            border-top: 2px solid var(--geno-blue);
         }
 
         /* Responsive Design */
@@ -260,25 +289,26 @@
             header {
                 flex-direction: column;
                 gap: 15px;
+                padding: 1rem;
+            }
+            .logo-img {
+                height: 50px;
             }
             .banner h1 {
-                font-size: 2.2rem;
+                font-size: 2rem;
             }
             .banner p {
-                font-size: 1rem;
-            }
-            .contact-form {
-                padding: 25px;
+                font-size: 0.95rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation Bar -->
+    <!-- Navigation Bar (Dark matched to logo background) -->
     <header>
-        <a href="#" class="logo">
-            <span class="logo-icon">🌸</span> AokiPharma
+        <a href="#home" class="logo-container">
+            <img src="1000155634.png" alt="Genovaris Lifesciences Logo" class="logo-img">
         </a>
         <nav>
             <a href="#home">Home</a>
@@ -288,62 +318,57 @@
         </nav>
     </header>
 
-    <!-- Trustworthy Health Tagline Banner -->
+    <!-- Trustworthy Health Banner (Anime blooming tree overlay with brand colors) -->
     <section id="home" class="banner">
-        <h1>Nurturing Health, Inspiring Life</h1>
-        <p>Combining the resilience of nature with cutting-edge medical science to provide reliable, professional pharmaceutical care for you and your family.</p>
+        <h1>Innovating Life. Enhancing Tomorrow.</h1>
+        <p>Harnessing the power of advanced biosciences and the resilience of nature to deliver reliable, cutting-edge pharmaceutical care for a healthier future.</p>
     </section>
 
     <!-- Products Section -->
     <section id="products" class="container">
-        <h2 class="section-title">Our Essential Medicines</h2>
+        <h2 class="section-title">Core Therapeutic Solutions</h2>
         <div class="products-grid">
-            <!-- Product 1 -->
-            <div class="product-card">
-                <div class="product-icon">⚕️</div>
-                <h3>CardioShield Plus</h3>
-                <p>Advanced cardiovascular support formulated with highest purity standards to maintain healthy blood pressure and heart function.</p>
-            </div>
-            <!-- Product 2 -->
             <div class="product-card">
                 <div class="product-icon">🧬</div>
-                <h3>NeuroVitality</h3>
-                <p>Clinically tested cognitive enhancement therapy designed to protect neural pathways and support overall brain health.</p>
+                <h3>GenoCardio Plus</h3>
+                <p>Advanced cardiovascular support formulated with our proprietary genetic markers to maintain optimal heart function and cellular health.</p>
             </div>
-            <!-- Product 3 -->
+            <div class="product-card">
+                <div class="product-icon">🌿</div>
+                <h3>VarisNeuro Sync</h3>
+                <p>Clinically validated cognitive therapy utilizing botanical synthesis to protect neural pathways and sustain overall brain vitality.</p>
+            </div>
             <div class="product-card">
                 <div class="product-icon">🛡️</div>
-                <h3>ImmunoGuard Forte</h3>
-                <p>A comprehensive immune system booster developed for rapid absorption and sustained cellular defense mechanisms.</p>
+                <h3>ImmunoVaris Forte</h3>
+                <p>A comprehensive immune enhancement system developed for rapid cellular absorption and fortified, long-lasting defense mechanisms.</p>
             </div>
         </div>
     </section>
 
     <!-- About Us Section -->
-    <section id="about" class="about-section">
-        <div class="container" style="padding: 0;">
-            <h2 class="section-title">About Us</h2>
-            <div class="about-content">
-                <p>At AokiPharma, we believe that true healing begins with a commitment to quality and scientific excellence. Founded by a dedicated team of medical professionals, our mission is to deliver life-enhancing pharmaceuticals that meet the most rigorous global standards. Like the steadfast blooming tree that signals renewal, we strive to bring hope, vitality, and unwavering health support to communities worldwide.</p>
-            </div>
+    <section id="about" class="about-section container">
+        <h2 class="section-title">About Genovaris</h2>
+        <div class="about-content">
+            <p>At <strong>Genovaris Lifesciences</strong>, we believe the future of medicine lies at the intersection of genetic innovation and natural vitality. Guided by our blooming tree philosophy—representing continuous renewal and enduring strength—our dedicated team of researchers and medical professionals work tirelessly to develop treatments that meet the most rigorous global standards. From the DNA sequence to the blooming leaf, our mission is to elevate the quality of human life worldwide.</p>
         </div>
     </section>
 
     <!-- Contact Us Section -->
     <section id="contact" class="container">
-        <h2 class="section-title">Contact Us</h2>
-        <form class="contact-form" onsubmit="event.preventDefault(); alert('Message sent successfully!');">
+        <h2 class="section-title">Connect With Us</h2>
+        <form class="contact-form" onsubmit="event.preventDefault(); alert('Inquiry sent successfully to Genovaris Lifesciences!');">
             <div class="form-group">
                 <label for="name">Full Name</label>
                 <input type="text" id="name" name="name" required placeholder="Dr. Jane Doe">
             </div>
             <div class="form-group">
                 <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" required placeholder="jane.doe@example.com">
+                <input type="email" id="email" name="email" required placeholder="jane.doe@clinic.com">
             </div>
             <div class="form-group">
                 <label for="message">Your Inquiry</label>
-                <textarea id="message" name="message" rows="5" required placeholder="How can we assist you with our medical products?"></textarea>
+                <textarea id="message" name="message" rows="4" required placeholder="How can Genovaris support your medical practice or personal health needs?"></textarea>
             </div>
             <button type="submit" class="submit-btn">Send Message</button>
         </form>
@@ -351,8 +376,9 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2026 AokiPharma Medical Solutions. All Rights Reserved.</p>
+        <p>&copy; 2026 Genovaris Lifesciences. Innovating Life. Enhancing Tomorrow. All Rights Reserved.</p>
     </footer>
 
 </body>
 </html>
+

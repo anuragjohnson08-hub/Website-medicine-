@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AokiPharma - Advanced Medical Solutions</title>
+    <style>
+        :root {
+            /* Medical Blue and Clean White Theme */
+            --primary-blue: #1e88e5;
+            --deep-blue: #0d47a1;
+            --soft-blue: #e3f2fd;
+            --clean-white: #ffffff;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--soft-blue);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Navigation Bar */
+        header {
+            background-color: var(--clean-white);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--deep-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Stylized aesthetic element */
+        .logo-icon {
+            color: #ffb7c5; /* Soft blooming petal accent */
+            font-size: 2rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--primary-blue);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--deep-blue);
+        }
+
+        /* Trustworthy Health Banner with Anime-Style Blooming Tree Motif */
+        .banner {
+            /* Incorporating an illustrated/anime-like blooming cherry blossom tree aesthetic overlaid with medical blue */
+            background: 
+                linear-gradient(135deg, rgba(13, 71, 161, 0.85) 0%, rgba(30, 136, 229, 0.75) 100%),
+                url('https://images.unsplash.com/photo-1522383225653-ed111181a951?auto=format&fit=crop&q=80&w=2000') center/cover no-repeat;
+            color: var(--clean-white);
+            text-align: center;
+            padding: 120px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle glowing atmospheric effect */
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .banner h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .banner p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+            position: relative;
+        }
+
+        /* Container for Sections */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--deep-blue);
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-blue);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Product Cards */
+        .products-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: var(--clean-white);
+            border-radius: 12px;
+            padding: 30px 20px;
+            width: 100%;
+            max-width: 340px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-bottom: 5px solid var(--primary-blue);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(30, 136, 229, 0.15);
+        }
+
+        .product-icon {
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+
+        .product-card h3 {
+            color: var(--deep-blue);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .product-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* About Us Section */
+        .about-section {
+            background-color: var(--clean-white);
+            padding: 80px 20px;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--clean-white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--deep-blue);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+        }
+
+        button.submit-btn {
+            width: 100%;
+            background-color: var(--primary-blue);
+            color: var(--clean-white);
+            border: none;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button.submit-btn:hover {
+            background-color: var(--deep-blue);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--deep-blue);
+            color: var(--clean-white);
+            text-align: center;
+            padding: 25px 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .banner h1 {
+                font-size: 2.2rem;
+            }
+            .banner p {
+                font-size: 1rem;
+            }
+            .contact-form {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+        <a href="#" class="logo">
+            <span class="logo-icon">🌸</span> AokiPharma
+        </a>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#products">Products</a>
+            <a href="#about">About Us</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Trustworthy Health Tagline Banner -->
+    <section id="home" class="banner">
+        <h1>Nurturing Health, Inspiring Life</h1>
+        <p>Combining the resilience of nature with cutting-edge medical science to provide reliable, professional pharmaceutical care for you and your family.</p>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="container">
+        <h2 class="section-title">Our Essential Medicines</h2>
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-icon">⚕️</div>
+                <h3>CardioShield Plus</h3>
+                <p>Advanced cardiovascular support formulated with highest purity standards to maintain healthy blood pressure and heart function.</p>
+            </div>
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="product-icon">🧬</div>
+                <h3>NeuroVitality</h3>
+                <p>Clinically tested cognitive enhancement therapy designed to protect neural pathways and support overall brain health.</p>
+            </div>
+            <!-- Product 3 -->
+            <div class="product-card">
+                <div class="product-icon">🛡️</div>
+                <h3>ImmunoGuard Forte</h3>
+                <p>A comprehensive immune system booster developed for rapid absorption and sustained cellular defense mechanisms.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="about-section">
+        <div class="container" style="padding: 0;">
+            <h2 class="section-title">About Us</h2>
+            <div class="about-content">
+                <p>At AokiPharma, we believe that true healing begins with a commitment to quality and scientific excellence. Founded by a dedicated team of medical professionals, our mission is to deliver life-enhancing pharmaceuticals that meet the most rigorous global standards. Like the steadfast blooming tree that signals renewal, we strive to bring hope, vitality, and unwavering health support to communities worldwide.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section id="contact" class="container">
+        <h2 class="section-title">Contact Us</h2>
+        <form class="contact-form" onsubmit="event.preventDefault(); alert('Message sent successfully!');">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required placeholder="Dr. Jane Doe">
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="jane.doe@example.com">
+            </div>
+            <div class="form-group">
+                <label for="message">Your Inquiry</label>
+                <textarea id="message" name="message" rows="5" required placeholder="How can we assist you with our medical products?"></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 AokiPharma Medical Solutions. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>

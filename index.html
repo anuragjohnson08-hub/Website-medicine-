@@ -5,618 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Genovaris Lifesciences | Advanced Biological Therapeutics</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --corp-blue: #0A304E;
-            --corp-light-blue: #1C5A8D;
-            --corp-teal: #009988;
-            --bg-light: #F7F9FC;
-            --clean-white: #ffffff;
-            --text-main: #333333;
-            --text-muted: #666666;
-            --sakura-pink: #ffb7c5;
-            --transition-smooth: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Montserrat', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--clean-white);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-            user-select: none;
-        }
-
-        /* --- 1. LIQUID DNA PRELOADER --- */
-        #preloader {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: radial-gradient(circle at center, #111d2e 0%, #060c14 100%);
-            z-index: 99999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
-            will-change: opacity;
-        }
-
-        .dna-container {
-            position: relative;
-            width: 160px;
-            height: 320px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #dnaCanvas {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            filter: drop-shadow(0 0 16px rgba(0, 162, 255, 0.5));
-        }
-
-        /* --- 2. FLOATING HEADER & NAVIGATION (PC Overlay) --- */
-        header {
-            position: fixed;
-            top: 0; left: 0; width: 100%;
-            background: linear-gradient(to bottom, rgba(6, 25, 40, 0.85) 0%, transparent 100%); /* Transparent overlay */
-            padding: 20px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            transition: background-color 0.5s ease, padding 0.5s ease, backdrop-filter 0.5s ease;
-        }
-
-        /* Solidifies the header when the user scrolls down */
-        header.scrolled {
-            background-color: rgba(6, 25, 40, 0.95);
-            backdrop-filter: blur(12px);
-            padding: 12px 5%;
-            box-shadow: 0 4px 25px rgba(0,0,0,0.4);
-        }
-
-        /* Mobile Hamburger Icon */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 28px;
-            height: 20px;
-            cursor: pointer;
-            z-index: 1001;
-        }
-
-        .menu-toggle span {
-            width: 100%; height: 2px;
-            background-color: var(--clean-white);
-            border-radius: 2px;
-            transition: var(--transition-smooth);
-        }
-
-        .menu-toggle:hover span {
-            background-color: var(--sakura-pink);
-        }
-
-        .logo-img {
-            height: 50px;
-            object-fit: contain;
-            filter: brightness(0) invert(1); 
-            transition: height 0.4s ease;
-            drop-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-
-        header.scrolled .logo-img {
-            height: 40px;
-        }
-
-        /* Desktop Horizontal Navigation */
-        .desktop-nav {
-            display: flex;
-            gap: 35px;
-        }
-
-        .desktop-nav a {
-            text-decoration: none;
-            color: var(--clean-white);
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            position: relative;
-            transition: color 0.4s ease, text-shadow 0.4s ease;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.6);
-        }
-
-        .desktop-nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -6px; left: 0; width: 0; height: 2px;
-            background-color: var(--sakura-pink);
-            transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            box-shadow: 0 0 8px var(--sakura-pink);
-        }
-
-        .desktop-nav a:hover {
-            color: var(--sakura-pink);
-            text-shadow: 0 0 10px rgba(255, 183, 197, 0.4);
-        }
-
-        .desktop-nav a:hover::after {
-            width: 100%;
-        }
-
-        /* Mobile Sliding Menu Panel */
-        .mobile-sidebar {
-            position: fixed;
-            top: 0; left: -260px;
-            width: 240px; 
-            height: 100vh;
-            background: linear-gradient(135deg, #061928 0%, #0a304e 100%);
-            z-index: 2000;
-            display: flex;
-            flex-direction: column;
-            padding: 80px 20px 40px; 
-            transition: left 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-            box-shadow: 10px 0 30px rgba(0,0,0,0.6);
-            border-right: 1px solid rgba(255, 183, 197, 0.1);
-        }
-
-        .mobile-sidebar.active {
-            left: 0;
-        }
-
-        .sidebar-close {
-            position: absolute;
-            top: 20px; right: 25px;
-            font-size: 2.5rem;
-            color: rgba(255,255,255,0.6);
-            cursor: pointer;
-            transition: color 0.3s, transform 0.3s;
-            line-height: 1;
-        }
-
-        .sidebar-close:hover {
-            color: var(--sakura-pink);
-            transform: rotate(90deg);
-        }
-
-        .sidebar-links {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        .sidebar-links a, .sidebar-bottom-link {
-            text-decoration: none;
-            color: var(--clean-white);
-            font-size: 1.15rem; 
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            transition: color 0.4s ease, transform 0.4s ease;
-        }
-
-        .sidebar-links a:hover, .sidebar-bottom-link:hover {
-            color: var(--sakura-pink);
-            transform: translateX(8px);
-        }
-
-        .sidebar-bottom-link {
-            margin-top: auto;
-            margin-bottom: 40px; 
-            border-bottom: 1px solid rgba(255, 183, 197, 0.2); 
-            padding-bottom: 20px;
-            display: block;
-        }
-
-        .sidebar-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(4px);
-            z-index: 1999;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.4s ease, visibility 0.4s;
-        }
-
-        .sidebar-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* --- 3. CINEMATIC LANDSCAPE HERO CAROUSEL --- */
-        .hero {
-            position: relative;
-            width: 100%;
-            margin-top: 0; /* Pulled up to 0 to slide under the transparent header */
-            background-color: #061928;
-            overflow: hidden;
-            aspect-ratio: 16 / 9; 
-            max-height: 70vh;
-            min-height: 400px;
-            touch-action: pan-y pinch-zoom;
-        }
-
-        .slider-track {
-            display: flex;
-            width: 100%;
-            height: 100%;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-        }
-
-        .slider-track::-webkit-scrollbar {
-            display: none;
-        }
-
-        .slide {
-            flex: 0 0 100%;
-            width: 100%;
-            height: 100%;
-            position: relative;
-            scroll-snap-align: start;
-            scroll-snap-stop: always;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #061928;
-        }
-
-        /* Background blur layer */
-        .slide-bg-blur {
-            position: absolute;
-            top: -10%; left: -10%; width: 120%; height: 120%;
-            object-fit: cover;
-            object-position: center;
-            filter: blur(25px) brightness(0.45);
-            transform: scale(1.08);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* Crisp foreground layer */
-        .slide-media {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .slide-media img.hero-img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; 
-            object-position: center;
-            display: block;
-        }
-
-        /* Dark gradient overlay to ensure menu text is always readable over bright images */
-        .slide-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 35%;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, transparent 100%);
-            z-index: 3;
-            pointer-events: none;
-        }
-
-        .carousel-indicators {
-            position: absolute;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 12px;
-            z-index: 10;
-        }
-
-        .indicator {
-            width: 32px;
-            height: 4px;
-            background-color: rgba(255,255,255,0.4);
-            border-radius: 2px;
-            cursor: pointer;
-            transition: all 0.4s ease;
-        }
-
-        .indicator.active {
-            background-color: var(--corp-teal);
-            width: 55px;
-            box-shadow: 0 0 10px rgba(0, 153, 136, 0.6);
-        }
-
-        /* --- 4. SCROLL REVEAL ANIMATIONS --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: var(--transition-smooth);
-        }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* --- 5. THERAPEUTIC PORTFOLIO --- */
-        .portfolio-section {
-            padding: 80px 5%;
-            background-color: var(--bg-light);
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .section-header h2 {
-            color: var(--corp-blue);
-            font-size: 2.3rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .section-header .divider {
-            width: 60px;
-            height: 3px;
-            background-color: var(--corp-teal);
-            margin: 0 auto;
-        }
-
-        .grid-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-            gap: 30px;
-        }
-
-        .product-card {
-            background: var(--clean-white);
-            border-radius: 8px;
-            padding: 35px 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border-top: 4px solid transparent;
-            transition: var(--transition-smooth);
-        }
-
-        .product-card:hover {
-            transform: translateY(-8px);
-            border-top: 4px solid var(--corp-teal);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.09);
-        }
-
-        .product-card h3 {
-            color: var(--corp-blue);
-            font-size: 1.6rem;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .desc-group {
-            margin-bottom: 18px;
-        }
-
-        .desc-title {
-            font-size: 0.82rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .patient-title { color: var(--corp-teal); }
-        .clinical-title { color: var(--corp-light-blue); margin-top: 15px; }
-
-        .desc-text {
-            font-size: 0.92rem;
-            color: var(--text-muted);
-            line-height: 1.55;
-        }
-
-        /* --- 6. DNA STATS OVERVIEW --- */
-        .stats-section {
-            background-color: var(--corp-blue);
-            padding: 80px 5%;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stats-section::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M20,0 Q50,50 80,0 M20,100 Q50,50 80,100" stroke="rgba(255,255,255,0.04)" stroke-width="2" fill="none"/></svg>') repeat;
-            opacity: 0.5;
-            pointer-events: none;
-        }
-
-        .stats-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            position: relative;
-            z-index: 2;
-        }
-
-        .stat-box {
-            flex: 1 1 200px;
-            text-align: center;
-            padding: 15px;
-            border-right: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .stat-box:last-child {
-            border-right: none;
-        }
-
-        .stat-number {
-            font-size: 3.2rem;
-            font-weight: 700;
-            color: var(--clean-white);
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .stat-label {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--corp-teal);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .stat-note {
-            display: block;
-            font-size: 0.78rem;
-            color: rgba(255,255,255,0.5);
-            margin-top: 8px;
-            font-style: italic;
-        }
-
-        /* --- 7. CLEAN, MINIMALIST FOOTER --- */
-        .site-footer {
-            background-color: #061928;
-            color: var(--clean-white);
-            padding: 60px 5% 20px;
-            border-top: 4px solid var(--corp-teal);
-        }
-
-        .footer-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-brand .footer-logo {
-            height: 55px;
-            margin-bottom: 15px;
-            filter: brightness(0) invert(1);
-        }
-
-        .footer-brand p {
-            color: rgba(255,255,255,0.6);
-            font-size: 0.9rem;
-        }
-
-        .footer-section h4 {
-            color: var(--corp-teal);
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .footer-section p {
-            color: rgba(255,255,255,0.8);
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-            line-height: 1.6;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.5);
-            font-size: 0.85rem;
-        }
-
-        .footer-bottom a {
-            color: var(--corp-teal);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-bottom a:hover {
-            color: var(--sakura-pink);
-        }
-
-        /* --- BREAKPOINTS & ADAPTIVE SIZING --- */
-        @media (max-width: 1024px) {
-            .desktop-nav { display: none; }
-            .menu-toggle { display: flex; }
-            
-            /* Returns header to solid blue ONLY on mobile devices to prevent overlap */
-            header { 
-                background-color: var(--corp-blue);
-                justify-content: flex-start; 
-                gap: 20px; 
-                padding: 12px 5%; 
-            }
-            .logo-container { margin: 0 auto; transform: translateX(-20px); }
-            
-            .hero {
-                margin-top: 74px; /* Pushes image down to clear the solid mobile header */
-                aspect-ratio: auto; 
-                height: 40vh; 
-                min-height: 250px;
-                max-height: none;
-            }
-            
-            .carousel-indicators {
-                bottom: 12px;
-                gap: 8px;
-            }
-            .indicator {
-                width: 22px;
-                height: 3px;
-            }
-            .indicator.active {
-                width: 38px;
-            }
-            .stat-box { 
-                flex: 1 1 45%; 
-                border-right: none; 
-                border-bottom: 1px solid rgba(255,255,255,0.1); 
-                margin-bottom: 15px; 
-            }
-            .stat-box:last-child { border-bottom: none; }
-            .portfolio-section { padding: 60px 5%; }
-            .footer-container { gap: 30px; text-align: center; }
-            .footer-brand .footer-logo { margin: 0 auto 15px; }
-        }
-    </style>
+    
+    <!-- Connects the PC Base Styling -->
+    <link rel="stylesheet" href="pc-style.css">
+    
+    <!-- Connects the Mobile Styling (Only activates on smaller screens) -->
+    <link rel="stylesheet" media="screen and (max-width: 1024px)" href="mobile-style.css">
 </head>
 <body>
 
-    <!-- 1. Fluid DNA Preloader -->
+    <!-- Fluid DNA Preloader -->
     <div id="preloader">
         <div class="dna-container">
             <canvas id="dnaCanvas" width="320" height="640"></canvas>
         </div>
     </div>
 
-    <!-- 2. Transparent Floating Header (PC) / Solid Header (Mobile) -->
+    <!-- Header & PC Navigation -->
     <header id="header">
-        <!-- Mobile Menu Toggle (Left Side) -->
         <div class="menu-toggle" onclick="toggleMenu()" aria-label="Open Menu">
             <span></span>
             <span></span>
@@ -627,39 +33,131 @@
             <img src="1000155634_2.png" alt="Genovaris Lifesciences" class="logo-img" width="180" height="50">
         </a>
         
-        <!-- PC / Desktop Horizontal Line-up Overlay Menu -->
+        <!-- PC Overlay Menu -->
         <nav class="desktop-nav">
-            <a href="products.html">Products</a>
-            <a href="think1.html">(About to think)</a>
-            <a href="think2.html">(About to think)</a>
-            <a href="think3.html">(About to think)</a>
+            <div class="dropdown">
+                <a href="products.html">Products <span class="dropdown-arrow">▼</span></a>
+                <div class="dropdown-content">
+                    <a href="product1.html">Protizen-HP</a>
+                    <a href="product2.html">RED-XT</a>
+                    <a href="product3.html">Bonebro</a>
+                    <a href="product4.html">CEREBRA-CB</a>
+                    <a href="pipeline.html">Future Pipeline</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a href="think1.html">(About to think) <span class="dropdown-arrow">▼</span></a>
+                <div class="dropdown-content">
+                    <a href="#">Sub-Link 1</a>
+                    <a href="#">Sub-Link 2</a>
+                    <a href="#">Sub-Link 3</a>
+                    <a href="#">Sub-Link 4</a>
+                    <a href="#">Sub-Link 5</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a href="think2.html">(About to think) <span class="dropdown-arrow">▼</span></a>
+                <div class="dropdown-content">
+                    <a href="#">Sub-Link 1</a>
+                    <a href="#">Sub-Link 2</a>
+                    <a href="#">Sub-Link 3</a>
+                    <a href="#">Sub-Link 4</a>
+                    <a href="#">Sub-Link 5</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a href="think3.html">(About to think) <span class="dropdown-arrow">▼</span></a>
+                <div class="dropdown-content">
+                    <a href="#">Sub-Link 1</a>
+                    <a href="#">Sub-Link 2</a>
+                    <a href="#">Sub-Link 3</a>
+                    <a href="#">Sub-Link 4</a>
+                    <a href="#">Sub-Link 5</a>
+                </div>
+            </div>
+
             <a href="about.html">About us</a>
         </nav>
     </header>
 
-    <!-- Mobile Slide-In Panel -->
+    <!-- Mobile Slide-In Panel (Confined Drawer) -->
     <div class="mobile-sidebar" id="mobileSidebar">
         <div class="sidebar-close" onclick="toggleMenu()" aria-label="Close Menu">×</div>
+        
         <div class="sidebar-links">
-            <a href="products.html">Products</a>
-            <a href="think1.html">(About to think)</a>
-            <a href="think2.html">(About to think)</a>
-            <a href="think3.html">(About to think)</a>
+            <div class="mobile-dropdown">
+                <div class="mobile-dropdown-header">
+                    <a href="products.html">Products</a>
+                    <span class="arrow-toggle" onclick="toggleAccordion(this)" aria-label="Expand submenu">▼</span>
+                </div>
+                <div class="mobile-dropdown-content">
+                    <a href="product1.html">Protizen-HP</a>
+                    <a href="product2.html">RED-XT</a>
+                    <a href="product3.html">Bonebro</a>
+                    <a href="product4.html">CEREBRA-CB</a>
+                    <a href="pipeline.html">Future Pipeline</a>
+                </div>
+            </div>
+
+            <div class="mobile-dropdown">
+                <div class="mobile-dropdown-header">
+                    <a href="think1.html">(About to think)</a>
+                    <span class="arrow-toggle" onclick="toggleAccordion(this)" aria-label="Expand submenu">▼</span>
+                </div>
+                <div class="mobile-dropdown-content">
+                    <a href="#">Sub-Link 1</a>
+                    <a href="#">Sub-Link 2</a>
+                    <a href="#">Sub-Link 3</a>
+                    <a href="#">Sub-Link 4</a>
+                    <a href="#">Sub-Link 5</a>
+                </div>
+            </div>
+
+            <div class="mobile-dropdown">
+                <div class="mobile-dropdown-header">
+                    <a href="think2.html">(About to think)</a>
+                    <span class="arrow-toggle" onclick="toggleAccordion(this)" aria-label="Expand submenu">▼</span>
+                </div>
+                <div class="mobile-dropdown-content">
+                    <a href="#">Sub-Link 1</a>
+                    <a href="#">Sub-Link 2</a>
+                    <a href="#">Sub-Link 3</a>
+                    <a href="#">Sub-Link 4</a>
+                    <a href="#">Sub-Link 5</a>
+                </div>
+            </div>
+
+            <div class="mobile-dropdown">
+                <div class="mobile-dropdown-header">
+                    <a href="think3.html">(About to think)</a>
+                    <span class="arrow-toggle" onclick="toggleAccordion(this)" aria-label="Expand submenu">▼</span>
+                </div>
+                <div class="mobile-dropdown-content">
+                    <a href="#">Sub-Link 1</a>
+                    <a href="#">Sub-Link 2</a>
+                    <a href="#">Sub-Link 3</a>
+                    <a href="#">Sub-Link 4</a>
+                    <a href="#">Sub-Link 5</a>
+                </div>
+            </div>
         </div>
+
         <a href="about.html" class="sidebar-bottom-link">About us</a>
     </div>
     
-    <!-- Background Overlay for Mobile Menu -->
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleMenu()"></div>
 
-    <!-- 3. Cinematic Landscape Hero Carousel (JPG Only) -->
+    <!-- Hero Carousel -->
     <section class="hero" id="home" aria-label="Product Showcase">
         <div class="slider-track" id="sliderTrack">
             
             <div class="slide" id="slide-01-sakura-root">
                 <img src="slide-01-sakura-root.jpg" alt="" class="slide-bg-blur" aria-hidden="true">
                 <div class="slide-media">
-                    <img src="slide-01-sakura-root.jpg" alt="Protizen-HP - Advanced Nutrition, Superior Performance" class="hero-img" fetchpriority="high" loading="eager" decoding="async">
+                    <img src="slide-01-sakura-root.jpg" alt="Protizen-HP" class="hero-img" fetchpriority="high" loading="eager" decoding="async">
                 </div>
                 <div class="slide-overlay"></div>
             </div>
@@ -667,7 +165,7 @@
             <div class="slide" id="slide-02-branching-path">
                 <img src="slide-02-branching-path.jpg" alt="" class="slide-bg-blur" aria-hidden="true" loading="lazy">
                 <div class="slide-media">
-                    <img src="slide-02-branching-path.jpg" alt="RED-XT - Nourishing Blood, Enriching Life" class="hero-img" loading="lazy" decoding="async">
+                    <img src="slide-02-branching-path.jpg" alt="RED-XT" class="hero-img" loading="lazy" decoding="async">
                 </div>
                 <div class="slide-overlay"></div>
             </div>
@@ -675,7 +173,7 @@
             <div class="slide" id="slide-03-spring-blossom">
                 <img src="slide-03-spring-blossom.jpg" alt="" class="slide-bg-blur" aria-hidden="true" loading="lazy">
                 <div class="slide-media">
-                    <img src="slide-03-spring-blossom.jpg" alt="Bonebro - Strengthening Bones, Nourishing Life" class="hero-img" loading="lazy" decoding="async">
+                    <img src="slide-03-spring-blossom.jpg" alt="Bonebro" class="hero-img" loading="lazy" decoding="async">
                 </div>
                 <div class="slide-overlay"></div>
             </div>
@@ -683,7 +181,7 @@
             <div class="slide" id="slide-04-falling-petals">
                 <img src="slide-04-falling-petals.jpg" alt="" class="slide-bg-blur" aria-hidden="true" loading="lazy">
                 <div class="slide-media">
-                    <img src="slide-04-falling-petals.jpg" alt="CEREBRA-CB - Advanced Daily Nutrition for Energy, Immunity, Focus & Longevity" class="hero-img" loading="lazy" decoding="async">
+                    <img src="slide-04-falling-petals.jpg" alt="CEREBRA-CB" class="hero-img" loading="lazy" decoding="async">
                 </div>
                 <div class="slide-overlay"></div>
             </div>
@@ -698,7 +196,7 @@
         </div>
     </section>
 
-    <!-- 4. Therapeutic Portfolio -->
+    <!-- Therapeutic Portfolio -->
     <section class="portfolio-section" id="portfolio">
         <div class="section-header reveal">
             <h2>Therapeutic Portfolio</h2>
@@ -756,7 +254,7 @@
         </div>
     </section>
 
-    <!-- 5. Stats Overview -->
+    <!-- Stats Overview -->
     <section class="stats-section" id="impact">
         <div class="stats-container reveal">
             <div class="stat-box">
@@ -782,7 +280,7 @@
         </div>
     </section>
 
-    <!-- 6. Clean, Minimalist Footer -->
+    <!-- Footer -->
     <footer class="site-footer">
         <div class="footer-container">
             <div class="footer-brand">
@@ -810,19 +308,19 @@
         </div>
     </footer>
 
-    <!-- Core Engine Scripts -->
+    <!-- JavaScript Engine -->
     <script>
-        /**
-         * 0. MOBILE SIDEBAR MENU MECHANICS
-         */
         function toggleMenu() {
             document.getElementById('mobileSidebar').classList.toggle('active');
             document.getElementById('sidebarOverlay').classList.toggle('active');
         }
 
-        /**
-         * 1. BIO-ILLUMINATED DNA PRELOADER ENGINE
-         */
+        function toggleAccordion(arrowElement) {
+            arrowElement.classList.toggle('active');
+            const content = arrowElement.parentElement.nextElementSibling;
+            content.classList.toggle('expanded');
+        }
+
         const canvas = document.getElementById('dnaCanvas');
         const ctx = canvas.getContext('2d');
         const preloader = document.getElementById('preloader');
@@ -890,7 +388,6 @@
                 }
 
                 const waterLineY = height - (height * (progress / 100));
-
                 ctx.clearRect(0, 0, width, height);
 
                 for (let i = 0; i < nodesCount; i++) {
@@ -963,23 +460,12 @@
                     const cyanStroke = z1 > 0 ? '#b3f0ff' : '#00a0ff';
                     const dimNode = 'rgba(255, 255, 255, 0.15)';
 
-                    drawFacetNode(
-                        x1, y, 5.5 * scale1, 
-                        isSubmerged ? cyanBlue : dimNode, 
-                        isSubmerged ? '#00c3ff' : 'transparent',
-                        isSubmerged ? cyanStroke : null
-                    );
+                    drawFacetNode(x1, y, 5.5 * scale1, isSubmerged ? cyanBlue : dimNode, isSubmerged ? '#00c3ff' : 'transparent', isSubmerged ? cyanStroke : null);
 
                     const cyanBlue2 = z2 > 0 ? '#00b4ff' : '#0070d0';
                     const cyanStroke2 = z2 > 0 ? '#b3f0ff' : '#00a0ff';
 
-                    drawFacetNode(
-                        x2, y, 5.5 * scale2, 
-                        isSubmerged ? cyanBlue2 : dimNode, 
-                        isSubmerged ? '#00c3ff' : 'transparent',
-                        isSubmerged ? cyanStroke2 : null
-                    );
-
+                    drawFacetNode(x2, y, 5.5 * scale2, isSubmerged ? cyanBlue2 : dimNode, isSubmerged ? '#00c3ff' : 'transparent', isSubmerged ? cyanStroke2 : null);
                     ctx.shadowBlur = 0;
                 }
 
@@ -992,28 +478,19 @@
                     return;
                 }
             }
-
             animationFrameId = requestAnimationFrame(drawHelix);
         }
 
         animationFrameId = requestAnimationFrame(drawHelix);
 
-        window.addEventListener('load', () => {
-            isAssetsLoaded = true;
-        });
+        window.addEventListener('load', () => { isAssetsLoaded = true; });
 
-        /**
-         * 2. HEADER SCROLL DYNAMICS
-         */
         window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
             if (window.scrollY > 40) header.classList.add('scrolled');
             else header.classList.remove('scrolled');
         });
 
-        /**
-         * 3. TOUCH & CAROUSEL ENGINE
-         */
         const track = document.getElementById('sliderTrack');
         const slides = Array.from(track.children);
         const indicators = document.querySelectorAll('.indicator');
@@ -1023,44 +500,24 @@
         track.addEventListener('scroll', () => {
             const slideWidth = track.clientWidth;
             const currentIdx = Math.round(track.scrollLeft / slideWidth);
-            
-            indicators.forEach((dot, idx) => {
-                dot.classList.toggle('active', idx === currentIdx);
-            });
+            indicators.forEach((dot, idx) => { dot.classList.toggle('active', idx === currentIdx); });
         }, { passive: true });
 
-        track.addEventListener('touchstart', () => {
-            isTouching = true;
-            clearInterval(autoPlayTimer);
-        }, { passive: true });
-
-        track.addEventListener('touchend', () => {
-            isTouching = false;
-            startAutoPlay();
-        }, { passive: true });
+        track.addEventListener('touchstart', () => { isTouching = true; clearInterval(autoPlayTimer); }, { passive: true });
+        track.addEventListener('touchend', () => { isTouching = false; startAutoPlay(); }, { passive: true });
 
         function nextSlide() {
             if (isTouching) return;
             const slideWidth = track.clientWidth;
             let nextIndex = Math.round(track.scrollLeft / slideWidth) + 1;
-            
-            if (nextIndex >= slides.length) {
-                nextIndex = 0;
-            }
-            
-            track.scrollTo({
-                left: nextIndex * slideWidth,
-                behavior: 'smooth'
-            });
+            if (nextIndex >= slides.length) { nextIndex = 0; }
+            track.scrollTo({ left: nextIndex * slideWidth, behavior: 'smooth' });
         }
 
         function manualJump(index) {
             clearInterval(autoPlayTimer);
             const slideWidth = track.clientWidth;
-            track.scrollTo({
-                left: index * slideWidth,
-                behavior: 'smooth'
-            });
+            track.scrollTo({ left: index * slideWidth, behavior: 'smooth' });
             startAutoPlay();
         }
 
@@ -1071,9 +528,6 @@
 
         startAutoPlay();
 
-        /**
-         * 4. INTERSECTION OBSERVER FOR SCROLL REVEALS
-         */
         const observer = new IntersectionObserver((entries, obs) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {

@@ -6,10 +6,9 @@
     <title>Genovaris Lifesciences | Advanced Biological Therapeutics</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     
-    <!-- Connects the PC Base Styling -->
+    <!-- Connects PC Base Styling -->
     <link rel="stylesheet" href="pc-style.css">
-    
-    <!-- Connects the Mobile Styling (Only activates on smaller screens) -->
+    <!-- Connects Mobile Styling Overrides -->
     <link rel="stylesheet" media="screen and (max-width: 1024px)" href="mobile-style.css">
 </head>
 <body>
@@ -33,7 +32,7 @@
             <img src="1000155634_2.png" alt="Genovaris Lifesciences" class="logo-img" width="180" height="50">
         </a>
         
-        <!-- PC Overlay Menu -->
+        <!-- PC Overlay Canopy Menu -->
         <nav class="desktop-nav">
             <div class="dropdown">
                 <a href="products.html">Products <span class="dropdown-arrow">▼</span></a>
@@ -83,16 +82,18 @@
         </nav>
     </header>
 
-    <!-- Mobile Slide-In Panel (Confined Drawer) -->
+    <!-- Mobile Slide-In Panel (Unified Accordion Hit Areas) -->
     <div class="mobile-sidebar" id="mobileSidebar">
         <div class="sidebar-close" onclick="toggleMenu()" aria-label="Close Menu">×</div>
         
         <div class="sidebar-links">
+            
+            <!-- Products Accordion -->
             <div class="mobile-dropdown">
-                <div class="mobile-dropdown-header">
-                    <a href="products.html">Products</a>
-                    <span class="arrow-toggle" onclick="toggleAccordion(this)" aria-label="Expand submenu">▼</span>
-                </div>
+                <button class="mobile-dropdown-header" onclick="toggleAccordion(this)" aria-label="Toggle Products Submenu">
+                    <span class="menu-text">Products</span>
+                    <span class="arrow-toggle">▼</span>
+                </button>
                 <div class="mobile-dropdown-content">
                     <a href="product1.html">Protizen-HP</a>
                     <a href="product2.html">RED-XT</a>
@@ -102,11 +103,12 @@
                 </div>
             </div>
 
+            <!-- Placeholder 1 -->
             <div class="mobile-dropdown">
-                <div class="mobile-dropdown-header">
-                    <a href="think1.html">(About to think)</a>
-                    <span class="arrow-toggle" onclick="toggleAccordion(this)" aria-label="Expand submenu">▼</span>
-                </div>
+                <button class="mobile-dropdown-header" onclick="toggleAccordion(this)" aria-label="Toggle Submenu">
+                    <span class="menu-text">(About to think)</span>
+                    <span class="arrow-toggle">▼</span>
+                </button>
                 <div class="mobile-dropdown-content">
                     <a href="#">Sub-Link 1</a>
                     <a href="#">Sub-Link 2</a>
@@ -116,11 +118,12 @@
                 </div>
             </div>
 
+            <!-- Placeholder 2 -->
             <div class="mobile-dropdown">
-                <div class="mobile-dropdown-header">
-                    <a href="think2.html">(About to think)</a>
-                    <span class="arrow-toggle" onclick="toggleAccordion(this)" aria-label="Expand submenu">▼</span>
-                </div>
+                <button class="mobile-dropdown-header" onclick="toggleAccordion(this)" aria-label="Toggle Submenu">
+                    <span class="menu-text">(About to think)</span>
+                    <span class="arrow-toggle">▼</span>
+                </button>
                 <div class="mobile-dropdown-content">
                     <a href="#">Sub-Link 1</a>
                     <a href="#">Sub-Link 2</a>
@@ -130,11 +133,12 @@
                 </div>
             </div>
 
+            <!-- Placeholder 3 -->
             <div class="mobile-dropdown">
-                <div class="mobile-dropdown-header">
-                    <a href="think3.html">(About to think)</a>
-                    <span class="arrow-toggle" onclick="toggleAccordion(this)" aria-label="Expand submenu">▼</span>
-                </div>
+                <button class="mobile-dropdown-header" onclick="toggleAccordion(this)" aria-label="Toggle Submenu">
+                    <span class="menu-text">(About to think)</span>
+                    <span class="arrow-toggle">▼</span>
+                </button>
                 <div class="mobile-dropdown-content">
                     <a href="#">Sub-Link 1</a>
                     <a href="#">Sub-Link 2</a>
@@ -143,8 +147,10 @@
                     <a href="#">Sub-Link 5</a>
                 </div>
             </div>
+
         </div>
 
+        <!-- Direct Routing Link for About Us -->
         <a href="about.html" class="sidebar-bottom-link">About us</a>
     </div>
     
@@ -315,9 +321,9 @@
             document.getElementById('sidebarOverlay').classList.toggle('active');
         }
 
-        function toggleAccordion(arrowElement) {
-            arrowElement.classList.toggle('active');
-            const content = arrowElement.parentElement.nextElementSibling;
+        function toggleAccordion(headerElement) {
+            headerElement.classList.toggle('active');
+            const content = headerElement.nextElementSibling;
             content.classList.toggle('expanded');
         }
 

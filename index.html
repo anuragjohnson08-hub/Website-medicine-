@@ -63,31 +63,22 @@
 
         #dnaCanvas {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             filter: drop-shadow(0 0 16px rgba(0, 162, 255, 0.5));
         }
 
-        /* --- 2. FLOATING HEADER & NAVIGATION --- */
+        /* --- 2. SOLID HEADER & NAVIGATION --- */
         header {
             position: fixed;
             top: 0; left: 0; width: 100%;
-            background: linear-gradient(to bottom, rgba(6, 25, 40, 0.85) 0%, transparent 100%);
-            padding: 20px 5%;
+            background-color: var(--corp-blue); /* Solid blue to prevent overlap */
+            padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            transition: background-color 0.5s ease, padding 0.5s ease, backdrop-filter 0.5s ease;
-        }
-
-        header.scrolled {
-            background-color: rgba(6, 25, 40, 0.95);
-            backdrop-filter: blur(12px);
-            padding: 12px 5%;
-            box-shadow: 0 4px 25px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: var(--transition-smooth);
         }
 
         /* Mobile Hamburger Icon */
@@ -115,12 +106,8 @@
         .logo-img {
             height: 50px;
             object-fit: contain;
+            filter: brightness(0) invert(1); /* Makes logo white for dark header */
             transition: height 0.4s ease;
-            filter: drop-shadow(0 2px 10px rgba(0,0,0,0.3));
-        }
-
-        header.scrolled .logo-img {
-            height: 40px;
         }
 
         /* Desktop Horizontal Navigation */
@@ -138,7 +125,6 @@
             letter-spacing: 1.5px;
             position: relative;
             transition: color 0.4s ease, text-shadow 0.4s ease;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
         .desktop-nav a::after {
@@ -152,7 +138,6 @@
 
         .desktop-nav a:hover {
             color: var(--sakura-pink);
-            text-shadow: 0 0 10px rgba(255, 183, 197, 0.4);
         }
 
         .desktop-nav a:hover::after {
@@ -215,7 +200,7 @@
         }
 
         .sidebar-bottom-link {
-            margin-top: auto; /* Pushes element to the absolute bottom */
+            margin-top: auto;
             border-top: 1px solid rgba(255, 183, 197, 0.2);
             padding-top: 25px;
         }
@@ -240,12 +225,12 @@
         .hero {
             position: relative;
             width: 100%;
-            margin-top: 0; /* Removing top margin allows slides to flow seamlessly under the transparent header */
-            background-color: var(--corp-blue);
+            margin-top: 80px; /* Safely distances images from the solid header */
+            background-color: #061928;
             overflow: hidden;
-            aspect-ratio: 21 / 9;
+            aspect-ratio: 16 / 9; /* Perfect for horizontal brochures */
             max-height: 70vh;
-            min-height: 460px;
+            min-height: 400px;
             touch-action: pan-y pinch-zoom;
         }
 
@@ -278,6 +263,7 @@
             background-color: #061928;
         }
 
+        /* Background blur layer */
         .slide-bg-blur {
             position: absolute;
             top: -10%; left: -10%; width: 120%; height: 120%;
@@ -289,6 +275,7 @@
             z-index: 1;
         }
 
+        /* Crisp foreground layer */
         .slide-media {
             position: relative;
             z-index: 2;
@@ -299,21 +286,12 @@
             justify-content: center;
         }
 
-        .slide-media picture,
         .slide-media img.hero-img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: contain; /* Prevents text from getting cut off */
             object-position: center;
             display: block;
-        }
-
-        .slide-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(90deg, rgba(10, 48, 78, 0.45) 0%, transparent 40%, transparent 60%, rgba(10, 48, 78, 0.45) 100%);
-            z-index: 3;
-            pointer-events: none;
         }
 
         .carousel-indicators {
@@ -557,25 +535,19 @@
 
         /* --- BREAKPOINTS & ADAPTIVE SIZING --- */
         @media (max-width: 1024px) {
-            .hero {
-                aspect-ratio: 16 / 9;
-                max-height: 55vh;
-                min-height: 380px;
-            }
-            .section-header h2 { font-size: 2rem; }
-            .stat-number { font-size: 2.8rem; }
-        }
-
-        @media (max-width: 768px) {
             .desktop-nav { display: none; }
             .menu-toggle { display: flex; }
-            header { justify-content: flex-start; gap: 20px; }
+            header { justify-content: flex-start; gap: 20px; padding: 12px 5%; }
             .logo-container { margin: 0 auto; transform: translateX(-20px); }
+            
             .hero {
-                aspect-ratio: 16 / 10;
-                min-height: 280px;
-                max-height: 45vh;
+                margin-top: 74px; /* Exact height of the mobile header */
+                aspect-ratio: auto; /* Lets the image breathe comfortably on mobile */
+                height: 40vh; /* Taller box for phone screens */
+                min-height: 250px;
+                max-height: none;
             }
+            
             .carousel-indicators {
                 bottom: 12px;
                 gap: 8px;
@@ -609,7 +581,7 @@
         </div>
     </div>
 
-    <!-- 2. Floating Header & Responsive Navigations -->
+    <!-- 2. Solid Header & Responsive Navigation -->
     <header id="header">
         <!-- Mobile Menu Toggle (Left Side) -->
         <div class="menu-toggle" onclick="toggleMenu()" aria-label="Open Menu">
@@ -619,10 +591,11 @@
         </div>
 
         <a href="index.html" class="logo-container">
+            <!-- Replace this src with your white/transparent logo if available, or keep as is. The CSS filter makes it white. -->
             <img src="1000155634_2.png" alt="Genovaris Lifesciences" class="logo-img" width="180" height="50">
         </a>
         
-        <!-- PC / Desktop Seamless Overlay Navigation -->
+        <!-- PC / Desktop Horizontal Navigation -->
         <nav class="desktop-nav">
             <a href="products.html">Products</a>
             <a href="think1.html">(About to think)</a>
@@ -648,52 +621,36 @@
     <!-- Background Overlay for Mobile Menu -->
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleMenu()"></div>
 
-    <!-- 3. Cinematic Landscape Hero Carousel -->
+    <!-- 3. Cinematic Landscape Hero Carousel (JPG Only) -->
     <section class="hero" id="home" aria-label="Product Showcase">
         <div class="slider-track" id="sliderTrack">
             
             <div class="slide" id="slide-01-sakura-root">
                 <img src="slide-01-sakura-root.jpg" alt="" class="slide-bg-blur" aria-hidden="true">
                 <div class="slide-media">
-                    <picture>
-                        <source srcset="slide-01-sakura-root.webp" type="image/webp">
-                        <img src="slide-01-sakura-root.jpg" alt="Protizen-HP - Advanced Nutrition, Superior Performance" class="hero-img" fetchpriority="high" loading="eager" decoding="async">
-                    </picture>
+                    <img src="slide-01-sakura-root.jpg" alt="Protizen-HP - Advanced Nutrition, Superior Performance" class="hero-img" fetchpriority="high" loading="eager" decoding="async">
                 </div>
-                <div class="slide-overlay"></div>
             </div>
 
             <div class="slide" id="slide-02-branching-path">
                 <img src="slide-02-branching-path.jpg" alt="" class="slide-bg-blur" aria-hidden="true" loading="lazy">
                 <div class="slide-media">
-                    <picture>
-                        <source srcset="slide-02-branching-path.webp" type="image/webp">
-                        <img src="slide-02-branching-path.jpg" alt="RED-XT - Nourishing Blood, Enriching Life" class="hero-img" loading="lazy" decoding="async">
-                    </picture>
+                    <img src="slide-02-branching-path.jpg" alt="RED-XT - Nourishing Blood, Enriching Life" class="hero-img" loading="lazy" decoding="async">
                 </div>
-                <div class="slide-overlay"></div>
             </div>
 
             <div class="slide" id="slide-03-spring-blossom">
                 <img src="slide-03-spring-blossom.jpg" alt="" class="slide-bg-blur" aria-hidden="true" loading="lazy">
                 <div class="slide-media">
-                    <picture>
-                        <source srcset="slide-03-spring-blossom.webp" type="image/webp">
-                        <img src="slide-03-spring-blossom.jpg" alt="Bonebro - Strengthening Bones, Nourishing Life" class="hero-img" loading="lazy" decoding="async">
-                    </picture>
+                    <img src="slide-03-spring-blossom.jpg" alt="Bonebro - Strengthening Bones, Nourishing Life" class="hero-img" loading="lazy" decoding="async">
                 </div>
-                <div class="slide-overlay"></div>
             </div>
 
             <div class="slide" id="slide-04-falling-petals">
                 <img src="slide-04-falling-petals.jpg" alt="" class="slide-bg-blur" aria-hidden="true" loading="lazy">
                 <div class="slide-media">
-                    <picture>
-                        <source srcset="slide-04-falling-petals.webp" type="image/webp">
-                        <img src="slide-04-falling-petals.jpg" alt="CEREBRA-CB - Advanced Daily Nutrition for Energy, Immunity, Focus & Longevity" class="hero-img" loading="lazy" decoding="async">
-                    </picture>
+                    <img src="slide-04-falling-petals.jpg" alt="CEREBRA-CB - Advanced Daily Nutrition for Energy, Immunity, Focus & Longevity" class="hero-img" loading="lazy" decoding="async">
                 </div>
-                <div class="slide-overlay"></div>
             </div>
 
         </div>
@@ -809,7 +766,6 @@
             <div class="footer-section">
                 <h4>Compliance Info</h4>
                 <p><strong>FSSAI Reg No:</strong> 21126016000816</p>
-                <p><strong>GSTIN:</strong> 20AMDPA2242F2Z2</p>
             </div>
         </div>
         <div class="footer-bottom">
@@ -836,7 +792,7 @@
         const ctx = canvas.getContext('2d');
         const preloader = document.getElementById('preloader');
 
-        const isMobile = window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+        const isMobile = window.innerWidth <= 1024 || /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
         const targetFPS = isMobile ? 90 : 120;
         const frameInterval = 1000 / targetFPS;
 
@@ -1009,15 +965,6 @@
 
         window.addEventListener('load', () => {
             isAssetsLoaded = true;
-        });
-
-        /**
-         * 2. HEADER SCROLL DYNAMICS
-         */
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            if (window.scrollY > 40) header.classList.add('scrolled');
-            else header.classList.remove('scrolled');
         });
 
         /**

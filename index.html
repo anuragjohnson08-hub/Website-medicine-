@@ -67,18 +67,25 @@
             filter: drop-shadow(0 0 16px rgba(0, 162, 255, 0.5));
         }
 
-        /* --- 2. SOLID HEADER & NAVIGATION --- */
+        /* --- 2. FLOATING HEADER & NAVIGATION (PC Overlay) --- */
         header {
             position: fixed;
             top: 0; left: 0; width: 100%;
-            background-color: var(--corp-blue); 
-            padding: 15px 5%;
+            background: linear-gradient(to bottom, rgba(6, 25, 40, 0.85) 0%, transparent 100%); /* Transparent overlay */
+            padding: 20px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: var(--transition-smooth);
+            transition: background-color 0.5s ease, padding 0.5s ease, backdrop-filter 0.5s ease;
+        }
+
+        /* Solidifies the header when the user scrolls down */
+        header.scrolled {
+            background-color: rgba(6, 25, 40, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 12px 5%;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.4);
         }
 
         /* Mobile Hamburger Icon */
@@ -108,6 +115,11 @@
             object-fit: contain;
             filter: brightness(0) invert(1); 
             transition: height 0.4s ease;
+            drop-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        header.scrolled .logo-img {
+            height: 40px;
         }
 
         /* Desktop Horizontal Navigation */
@@ -125,6 +137,7 @@
             letter-spacing: 1.5px;
             position: relative;
             transition: color 0.4s ease, text-shadow 0.4s ease;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.6);
         }
 
         .desktop-nav a::after {
@@ -138,13 +151,14 @@
 
         .desktop-nav a:hover {
             color: var(--sakura-pink);
+            text-shadow: 0 0 10px rgba(255, 183, 197, 0.4);
         }
 
         .desktop-nav a:hover::after {
             width: 100%;
         }
 
-        /* Mobile Sliding Menu Panel - Trimmed & Elegant */
+        /* Mobile Sliding Menu Panel */
         .mobile-sidebar {
             position: fixed;
             top: 0; left: -260px;
@@ -201,8 +215,8 @@
         }
 
         .sidebar-bottom-link {
-            margin-top: auto; /* Pushes the branch down to the lower canopy */
-            margin-bottom: 40px; /* Lifts it just enough to sit exactly in your circled spot */
+            margin-top: auto;
+            margin-bottom: 40px; 
             border-bottom: 1px solid rgba(255, 183, 197, 0.2); 
             padding-bottom: 20px;
             display: block;
@@ -228,7 +242,7 @@
         .hero {
             position: relative;
             width: 100%;
-            margin-top: 80px; 
+            margin-top: 0; /* Pulled up to 0 to slide under the transparent header */
             background-color: #061928;
             overflow: hidden;
             aspect-ratio: 16 / 9; 
@@ -295,6 +309,15 @@
             object-fit: contain; 
             object-position: center;
             display: block;
+        }
+
+        /* Dark gradient overlay to ensure menu text is always readable over bright images */
+        .slide-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 35%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, transparent 100%);
+            z-index: 3;
+            pointer-events: none;
         }
 
         .carousel-indicators {
@@ -540,11 +563,18 @@
         @media (max-width: 1024px) {
             .desktop-nav { display: none; }
             .menu-toggle { display: flex; }
-            header { justify-content: flex-start; gap: 20px; padding: 12px 5%; }
+            
+            /* Returns header to solid blue ONLY on mobile devices to prevent overlap */
+            header { 
+                background-color: var(--corp-blue);
+                justify-content: flex-start; 
+                gap: 20px; 
+                padding: 12px 5%; 
+            }
             .logo-container { margin: 0 auto; transform: translateX(-20px); }
             
             .hero {
-                margin-top: 74px; 
+                margin-top: 74px; /* Pushes image down to clear the solid mobile header */
                 aspect-ratio: auto; 
                 height: 40vh; 
                 min-height: 250px;
@@ -584,7 +614,7 @@
         </div>
     </div>
 
-    <!-- 2. Solid Header & Responsive Navigation -->
+    <!-- 2. Transparent Floating Header (PC) / Solid Header (Mobile) -->
     <header id="header">
         <!-- Mobile Menu Toggle (Left Side) -->
         <div class="menu-toggle" onclick="toggleMenu()" aria-label="Open Menu">
@@ -597,7 +627,7 @@
             <img src="1000155634_2.png" alt="Genovaris Lifesciences" class="logo-img" width="180" height="50">
         </a>
         
-        <!-- PC / Desktop Horizontal Navigation -->
+        <!-- PC / Desktop Horizontal Line-up Overlay Menu -->
         <nav class="desktop-nav">
             <a href="products.html">Products</a>
             <a href="think1.html">(About to think)</a>
@@ -616,7 +646,6 @@
             <a href="think2.html">(About to think)</a>
             <a href="think3.html">(About to think)</a>
         </div>
-        <!-- Deep rooted link pulled to the designated circular region -->
         <a href="about.html" class="sidebar-bottom-link">About us</a>
     </div>
     
@@ -632,6 +661,7 @@
                 <div class="slide-media">
                     <img src="slide-01-sakura-root.jpg" alt="Protizen-HP - Advanced Nutrition, Superior Performance" class="hero-img" fetchpriority="high" loading="eager" decoding="async">
                 </div>
+                <div class="slide-overlay"></div>
             </div>
 
             <div class="slide" id="slide-02-branching-path">
@@ -639,6 +669,7 @@
                 <div class="slide-media">
                     <img src="slide-02-branching-path.jpg" alt="RED-XT - Nourishing Blood, Enriching Life" class="hero-img" loading="lazy" decoding="async">
                 </div>
+                <div class="slide-overlay"></div>
             </div>
 
             <div class="slide" id="slide-03-spring-blossom">
@@ -646,6 +677,7 @@
                 <div class="slide-media">
                     <img src="slide-03-spring-blossom.jpg" alt="Bonebro - Strengthening Bones, Nourishing Life" class="hero-img" loading="lazy" decoding="async">
                 </div>
+                <div class="slide-overlay"></div>
             </div>
 
             <div class="slide" id="slide-04-falling-petals">
@@ -653,6 +685,7 @@
                 <div class="slide-media">
                     <img src="slide-04-falling-petals.jpg" alt="CEREBRA-CB - Advanced Daily Nutrition for Energy, Immunity, Focus & Longevity" class="hero-img" loading="lazy" decoding="async">
                 </div>
+                <div class="slide-overlay"></div>
             </div>
 
         </div>
@@ -967,6 +1000,15 @@
 
         window.addEventListener('load', () => {
             isAssetsLoaded = true;
+        });
+
+        /**
+         * 2. HEADER SCROLL DYNAMICS
+         */
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 40) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
         });
 
         /**

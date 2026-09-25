@@ -71,7 +71,7 @@
         header {
             position: fixed;
             top: 0; left: 0; width: 100%;
-            background-color: var(--corp-blue); /* Solid blue to prevent overlap */
+            background-color: var(--corp-blue); 
             padding: 15px 5%;
             display: flex;
             justify-content: space-between;
@@ -106,7 +106,7 @@
         .logo-img {
             height: 50px;
             object-fit: contain;
-            filter: brightness(0) invert(1); /* Makes logo white for dark header */
+            filter: brightness(0) invert(1); 
             transition: height 0.4s ease;
         }
 
@@ -147,14 +147,14 @@
         /* Mobile Sliding Menu Panel - Trimmed & Elegant */
         .mobile-sidebar {
             position: fixed;
-            top: 0; left: -260px; /* Tucked slightly tighter */
-            width: 240px; /* Thinner profile */
+            top: 0; left: -260px;
+            width: 240px; 
             height: 100vh;
             background: linear-gradient(135deg, #061928 0%, #0a304e 100%);
             z-index: 2000;
             display: flex;
             flex-direction: column;
-            padding: 80px 20px 40px; /* Reduced side padding */
+            padding: 80px 20px 40px; 
             transition: left 0.5s cubic-bezier(0.25, 1, 0.5, 1);
             box-shadow: 10px 0 30px rgba(0,0,0,0.6);
             border-right: 1px solid rgba(255, 183, 197, 0.1);
@@ -188,7 +188,7 @@
         .sidebar-links a, .sidebar-bottom-link {
             text-decoration: none;
             color: var(--clean-white);
-            font-size: 1.15rem; /* Slightly larger, blooming text */
+            font-size: 1.15rem; 
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1.5px;
@@ -201,8 +201,9 @@
         }
 
         .sidebar-bottom-link {
-            margin-top: auto;
-            border-bottom: 1px solid rgba(255, 183, 197, 0.2); /* Line placed safely under the link */
+            margin-top: auto; /* Pushes the branch down to the lower canopy */
+            margin-bottom: 40px; /* Lifts it just enough to sit exactly in your circled spot */
+            border-bottom: 1px solid rgba(255, 183, 197, 0.2); 
             padding-bottom: 20px;
             display: block;
         }
@@ -227,10 +228,10 @@
         .hero {
             position: relative;
             width: 100%;
-            margin-top: 80px; /* Safely distances images from the solid header */
+            margin-top: 80px; 
             background-color: #061928;
             overflow: hidden;
-            aspect-ratio: 16 / 9; /* Perfect for horizontal brochures */
+            aspect-ratio: 16 / 9; 
             max-height: 70vh;
             min-height: 400px;
             touch-action: pan-y pinch-zoom;
@@ -291,7 +292,7 @@
         .slide-media img.hero-img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Prevents text from getting cut off */
+            object-fit: contain; 
             object-position: center;
             display: block;
         }
@@ -543,9 +544,9 @@
             .logo-container { margin: 0 auto; transform: translateX(-20px); }
             
             .hero {
-                margin-top: 74px; /* Exact height of the mobile header */
-                aspect-ratio: auto; /* Lets the image breathe comfortably on mobile */
-                height: 40vh; /* Taller box for phone screens */
+                margin-top: 74px; 
+                aspect-ratio: auto; 
+                height: 40vh; 
                 min-height: 250px;
                 max-height: none;
             }
@@ -615,7 +616,7 @@
             <a href="think2.html">(About to think)</a>
             <a href="think3.html">(About to think)</a>
         </div>
-        <!-- Deep rooted link locked with line smoothly underneath -->
+        <!-- Deep rooted link pulled to the designated circular region -->
         <a href="about.html" class="sidebar-bottom-link">About us</a>
     </div>
     

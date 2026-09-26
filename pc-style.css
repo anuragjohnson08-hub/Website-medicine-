@@ -30,12 +30,10 @@ body {
     user-select: none;
 }
 
+/* --- LIQUID DNA PRELOADER --- */
 #preloader {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    top: 0; left: 0; width: 100vw; height: 100vh;
     background: radial-gradient(circle at center, #111d2e 0%, #060c14 100%);
     z-index: 99999;
     display: flex;
@@ -56,18 +54,14 @@ body {
 
 #dnaCanvas {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     filter: drop-shadow(0 0 16px rgba(0, 162, 255, 0.5));
 }
 
+/* --- FLOATING HEADER & PC NAVIGATION --- */
 header {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+    top: 0; left: 0; width: 100%;
     background: linear-gradient(to bottom, rgba(6, 25, 40, 0.85) 0%, transparent 100%);
     padding: 20px 5%;
     display: flex;
@@ -95,8 +89,7 @@ header.scrolled {
 }
 
 .menu-toggle span {
-    width: 100%;
-    height: 2px;
+    width: 100%; height: 2px;
     background-color: var(--clean-white);
     border-radius: 2px;
     transition: var(--transition-smooth);
@@ -106,18 +99,20 @@ header.scrolled {
     background-color: var(--sakura-pink);
 }
 
+/* --- LARGER PC LOGO --- */
 .logo-img {
-    height: 85px;
-    width: auto;
+    height: 65px; /* Increased from 50px */
     object-fit: contain;
-    filter: none;
-    display: block;
+    filter: brightness(0) invert(1); 
+    transition: height 0.4s ease;
+    drop-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 
 header.scrolled .logo-img {
-    height: 65px;
+    height: 50px; /* Increased from 40px */
 }
 
+/* --- PC OVERLAY CANOPY MENU --- */
 .desktop-nav {
     display: flex;
     gap: 35px;
@@ -136,14 +131,10 @@ header.scrolled .logo-img {
     text-shadow: 0 2px 4px rgba(0,0,0,0.6);
 }
 
-.desktop-nav > a::after,
-.desktop-nav .dropdown > a::after {
+.desktop-nav > a::after, .desktop-nav .dropdown > a::after {
     content: '';
     position: absolute;
-    bottom: -6px;
-    left: 0;
-    width: 0;
-    height: 2px;
+    bottom: -6px; left: 0; width: 0; height: 2px;
     background-color: var(--sakura-pink);
     transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
     box-shadow: 0 0 8px var(--sakura-pink);
@@ -154,8 +145,7 @@ header.scrolled .logo-img {
     text-shadow: 0 0 10px rgba(255, 183, 197, 0.4);
 }
 
-.desktop-nav > a:hover::after,
-.desktop-nav .dropdown:hover > a::after {
+.desktop-nav > a:hover::after, .desktop-nav .dropdown:hover > a::after {
     width: 100%;
 }
 
@@ -216,11 +206,11 @@ header.scrolled .logo-img {
     padding-left: 25px;
 }
 
+/* --- MOBILE DRAWER STRUCTURE (Base states) --- */
 .mobile-sidebar {
     position: fixed;
-    top: 0;
-    left: -70vw;
-    width: 60vw;
+    top: 0; left: -70vw;
+    width: 60vw; 
     max-width: 350px;
     min-width: 260px;
     height: 100vh;
@@ -228,17 +218,16 @@ header.scrolled .logo-img {
     z-index: 2000;
     display: flex;
     flex-direction: column;
-    padding: 80px 25px 40px;
+    padding: 80px 25px 40px; 
     transition: left 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     box-shadow: 10px 0 30px rgba(0,0,0,0.6);
-    overflow-y: auto;
+    overflow-y: auto; 
     overflow-x: hidden;
 }
 
 .mobile-sidebar::-webkit-scrollbar {
     width: 6px;
 }
-
 .mobile-sidebar::-webkit-scrollbar-thumb {
     background: rgba(255,255,255,0.2);
     border-radius: 3px;
@@ -250,8 +239,7 @@ header.scrolled .logo-img {
 
 .sidebar-close {
     position: absolute;
-    top: 20px;
-    right: 25px;
+    top: 20px; right: 25px;
     font-size: 2.2rem;
     color: rgba(255,255,255,0.6);
     cursor: pointer;
@@ -279,12 +267,12 @@ header.scrolled .logo-img {
 .sidebar-bottom-link {
     text-decoration: none;
     color: var(--clean-white);
-    font-size: 1.15rem;
+    font-size: 1.15rem; 
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1.5px;
     transition: color 0.4s ease;
-    border-bottom: 1px solid rgba(255, 183, 197, 0.2);
+    border-bottom: 1px solid rgba(255, 183, 197, 0.2); 
     padding-bottom: 20px;
     display: block;
 }
@@ -312,10 +300,7 @@ header.scrolled .logo-img {
 
 .sidebar-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    top: 0; left: 0; width: 100vw; height: 100vh;
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(4px);
     z-index: 1999;
@@ -329,13 +314,14 @@ header.scrolled .logo-img {
     visibility: visible;
 }
 
+/* --- HERO CAROUSEL --- */
 .hero {
     position: relative;
     width: 100%;
-    margin-top: 0;
+    margin-top: 0; 
     background-color: #061928;
     overflow: hidden;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 16 / 9; 
     max-height: 70vh;
     min-height: 400px;
     touch-action: pan-y pinch-zoom;
@@ -372,10 +358,7 @@ header.scrolled .logo-img {
 
 .slide-bg-blur {
     position: absolute;
-    top: -10%;
-    left: -10%;
-    width: 120%;
-    height: 120%;
+    top: -10%; left: -10%; width: 120%; height: 120%;
     object-fit: cover;
     object-position: center;
     filter: blur(25px) brightness(0.45);
@@ -397,17 +380,14 @@ header.scrolled .logo-img {
 .slide-media img.hero-img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: contain; 
     object-position: center;
     display: block;
 }
 
 .slide-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 35%;
+    top: 0; left: 0; width: 100%; height: 35%;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, transparent 100%);
     z-index: 3;
     pointer-events: none;
@@ -438,6 +418,7 @@ header.scrolled .logo-img {
     box-shadow: 0 0 10px rgba(0, 153, 136, 0.6);
 }
 
+/* --- REVEALS, PORTFOLIO, STATS, FOOTER --- */
 .reveal {
     opacity: 0;
     transform: translateY(40px);
@@ -518,14 +499,8 @@ header.scrolled .logo-img {
     gap: 6px;
 }
 
-.patient-title {
-    color: var(--corp-teal);
-}
-
-.clinical-title {
-    color: var(--corp-light-blue);
-    margin-top: 15px;
-}
+.patient-title { color: var(--corp-teal); }
+.clinical-title { color: var(--corp-light-blue); margin-top: 15px; }
 
 .desc-text {
     font-size: 0.92rem;
@@ -543,10 +518,7 @@ header.scrolled .logo-img {
 .stats-section::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     background: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M20,0 Q50,50 80,0 M20,100 Q50,50 80,100" stroke="rgba(255,255,255,0.04)" stroke-width="2" fill="none"/></svg>') repeat;
     opacity: 0.5;
     pointer-events: none;
@@ -655,4 +627,130 @@ header.scrolled .logo-img {
 
 .footer-bottom a:hover {
     color: var(--sakura-pink);
+}
+/* ========================================================= */
+/* 🌸 MOBILE GARDEN (This code ONLY affects small screens) 🌸 */
+/* ========================================================= */
+
+@media (max-width: 1024px) {
+    .desktop-nav { display: none; }
+    .menu-toggle { display: flex; }
+    
+    header { 
+        background-color: var(--corp-blue);
+        justify-content: flex-start; 
+        gap: 20px; 
+        padding: 14px 5%; 
+    }
+    
+    .logo-container { 
+        margin: 0 auto; 
+        transform: translateX(-20px); 
+    }
+
+    /* --- LARGER MOBILE LOGO --- */
+    .logo-img {
+        height: 58px; /* Increased from 50px */
+    }
+    
+    .hero {
+        margin-top: 86px; /* Adjusted to balance the larger logo header */
+        aspect-ratio: auto; 
+        height: 40vh; 
+        min-height: 250px;
+        max-height: none;
+    }
+    
+    .carousel-indicators {
+        bottom: 12px;
+        gap: 8px;
+    }
+    
+    .indicator {
+        width: 22px;
+        height: 3px;
+    }
+    
+    .indicator.active {
+        width: 38px;
+    }
+    
+    .stat-box { 
+        flex: 1 1 45%; 
+        border-right: none; 
+        border-bottom: 1px solid rgba(255,255,255,0.1); 
+        margin-bottom: 15px; 
+    }
+    
+    .stat-box:last-child { 
+        border-bottom: none; 
+    }
+    
+    .portfolio-section { 
+        padding: 60px 5%; 
+    }
+    
+    .footer-container { 
+        gap: 30px; 
+        text-align: center; 
+    }
+    
+    .footer-brand .footer-logo { 
+        margin: 0 auto 15px; 
+    }
+
+    /* --- MOBILE ACCORDION STYLING REFINEMENTS --- */
+    .mobile-dropdown-header {
+        background: transparent !important; /* Strips the white box */
+        border: none !important;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0;
+    }
+
+    .mobile-dropdown-header span.menu-text {
+        color: var(--clean-white);
+        font-size: 1.15rem; 
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        transition: color 0.4s ease;
+    }
+
+    .mobile-dropdown-header:hover span.menu-text {
+        color: var(--sakura-pink);
+    }
+
+    .arrow-toggle {
+        font-size: 1rem;
+        color: rgba(255,255,255,0.7);
+        transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), color 0.3s;
+    }
+
+    .mobile-dropdown-header.active .arrow-toggle {
+        transform: rotate(180deg);
+        color: var(--sakura-pink);
+    }
+
+    /* Distinct, bold, larger sub-links with clear tap states */
+    .mobile-dropdown-content a {
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.95);
+        font-size: 0.98rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        transition: color 0.3s ease, padding-left 0.3s ease;
+        display: block;
+        padding: 6px 0;
+    }
+
+    .mobile-dropdown-content a:hover {
+        color: var(--sakura-pink);
+        padding-left: 6px;
+    }
 }

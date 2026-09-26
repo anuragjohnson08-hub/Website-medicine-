@@ -1,77 +1,80 @@
 @media (max-width: 1024px) {
-    .desktop-nav { display: none; }
-    .menu-toggle { display: flex; }
-    
-    header { 
-        background-color: var(--corp-blue);
-        justify-content: flex-start; 
-        gap: 20px; 
-        padding: 18px 5%; 
-    }
-    
-    .logo-container { 
-        margin: 0 auto; 
-        transform: translateX(-20px); 
+    .desktop-nav {
+        display: none;
     }
 
-    /* --- LARGER MOBILE LOGO --- */
-    .logo-img {
-    height: 75px;
-    width: auto;
-    object-fit: contain;
-    filter: none;
-    display: block;
+    .menu-toggle {
+        display: flex;
     }
-    
+
+    header {
+        background-color: var(--corp-blue);
+        justify-content: flex-start;
+        gap: 20px;
+        padding: 18px 5%;
+    }
+
+    .logo-container {
+        margin: 0 auto;
+        transform: translateX(-20px);
+    }
+
+    .logo-img {
+        height: 75px;
+        width: auto;
+        object-fit: contain;
+        filter: none;
+        display: block;
+    }
+
     .hero {
-        margin-top: 100px; /* Adjusted to balance the larger logo header */
-        aspect-ratio: auto; 
-        height: 40vh; 
+        margin-top: 100px;
+        aspect-ratio: auto;
+        height: 40vh;
         min-height: 250px;
         max-height: none;
     }
-    
+
     .carousel-indicators {
         bottom: 12px;
         gap: 8px;
     }
-    
+
     .indicator {
         width: 22px;
         height: 3px;
     }
-    
+
     .indicator.active {
         width: 38px;
     }
-    
-    .stat-box { 
-        flex: 1 1 45%; 
-        border-right: none; 
-        border-bottom: 1px solid rgba(255,255,255,0.1); 
-        margin-bottom: 15px; 
-    }
-    
-    .stat-box:last-child { 
-        border-bottom: none; 
-    }
-    
-    .portfolio-section { 
-        padding: 60px 5%; 
-    }
-    
-    .footer-container { 
-        gap: 30px; 
-        text-align: center; 
-    }
-    
-    .footer-brand .footer-logo { 
-        margin: 0 auto 15px; 
+
+    .stat-box {
+        flex: 1 1 45%;
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        margin-bottom: 15px;
     }
 
-    /* --- MOBILE ACCORDION STYLING REFINEMENTS --- */
+    .stat-box:last-child {
+        border-bottom: none;
+    }
+
+    .portfolio-section {
+        padding: 60px 5%;
+    }
+
+    .footer-container {
+        gap: 30px;
+        text-align: center;
+    }
+
+    .footer-brand .footer-logo {
+        margin: 0 auto 15px;
+    }
+
     .mobile-dropdown-header {
-        background: transparent !important; /* Strips the white box */
+        background: transparent !important;
         border: none !important;
         width: 100%;
         text-align: left;
@@ -84,7 +87,7 @@
 
     .mobile-dropdown-header span.menu-text {
         color: var(--clean-white);
-        font-size: 1.15rem; 
+        font-size: 1.15rem;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 1.5px;
@@ -106,10 +109,9 @@
         color: var(--sakura-pink);
     }
 
-    /* Distinct, bold, larger sub-links with clear tap states */
     .mobile-dropdown-content a {
         text-decoration: none;
-        color: rgba(255, 255, 255, 0.95);
+        color: rgba(255,255,255,0.95);
         font-size: 0.98rem;
         font-weight: 600;
         text-transform: uppercase;

@@ -112,15 +112,43 @@ header.scrolled .logo-img {
     height: 65px;
 }
 
-header.scrolled .logo-img {
-    height: 65px;
-}
-
 /* --- PC OVERLAY CANOPY MENU --- */
 .desktop-nav {
     display: flex;
     gap: 35px;
     align-items: center;
+    /* Desktop only: position over hero slides */
+    @media (min-width: 1025px) {
+        position: absolute;
+        top: 50%;
+        right: 5%;
+        transform: translateY(-50%);
+        z-index: 500;
+        background: rgba(6, 25, 40, 0.75);
+        backdrop-filter: blur(15px);
+        padding: 30px 40px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 183, 197, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+}
+
+@media (min-width: 1025px) {
+    .desktop-nav {
+        position: absolute;
+        top: 50%;
+        right: 5%;
+        transform: translateY(-50%);
+        z-index: 500;
+        background: rgba(6, 25, 40, 0.75);
+        backdrop-filter: blur(15px);
+        padding: 30px 40px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 183, 197, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        flex-direction: column;
+        gap: 20px;
+    }
 }
 
 .desktop-nav a {
@@ -148,7 +176,7 @@ header.scrolled .logo-img {
 .desktop-nav a:hover {
     color: var(--sakura-pink);
     text-shadow: 0 0 10px rgba(255, 183, 197, 0.4);
-    transform: scale(1.08);
+    transform: scale(1.08) translateY(-4px);
 }
 
 .desktop-nav > a:hover::after, .desktop-nav .dropdown:hover > a::after {

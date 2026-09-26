@@ -6,7 +6,7 @@
         background-color: var(--corp-blue);
         justify-content: flex-start; 
         gap: 20px; 
-        padding: 14px 5%; 
+        padding: 18px 5%; 
     }
     
     .logo-container { 
@@ -16,11 +16,15 @@
 
     /* --- LARGER MOBILE LOGO --- */
     .logo-img {
-        height: 58px; /* Increased from 50px */
+    height: 75px;
+    width: auto;
+    object-fit: contain;
+    filter: none;
+    display: block;
     }
     
     .hero {
-        margin-top: 86px; /* Adjusted to balance the larger logo header */
+        margin-top: 100px; /* Adjusted to balance the larger logo header */
         aspect-ratio: auto; 
         height: 40vh; 
         min-height: 250px;

@@ -101,15 +101,16 @@ header.scrolled {
 
 /* --- LARGER PC LOGO --- */
 .logo-img {
-    height: 65px; /* Increased from 50px */
+    height: 85px;
+    width: auto;
     object-fit: contain;
-    filter: brightness(0) invert(1); 
+    filter: brightness(0) invert(1);
     transition: height 0.4s ease;
-    drop-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    filter: brightness(0) invert(1) drop-shadow(0 2px 10px rgba(0,0,0,0.3));
 }
 
 header.scrolled .logo-img {
-    height: 50px; /* Increased from 40px */
+    height: 65px;
 }
 
 /* --- PC OVERLAY CANOPY MENU --- */

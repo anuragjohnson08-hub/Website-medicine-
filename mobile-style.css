@@ -19,6 +19,8 @@
     height: 75px;
     width: auto;
     object-fit: contain;
+    filter: none;
+    mix-blend-mode: screen;
     }
     
     .hero {
